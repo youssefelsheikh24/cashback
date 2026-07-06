@@ -5,13 +5,14 @@ import { useLang } from '../i18n/LanguageContext'
 const team = [
   { name: 'Ahmed Yasser', role: 'Director', roleAr: 'مخرج' },
   { name: 'Youssef Tarek', role: 'Videographer', roleAr: 'مصوّر فيديو' },
+  { name: 'Amir Ayman', role: 'Videographer', roleAr: 'مصوّر فيديو' },
   { name: 'Ebram Samy', role: 'Photographer', roleAr: 'مصوّر فوتوغرافي' },
   { name: 'Saif Hossam', role: 'Finance Manager', roleAr: 'مدير مالي' },
   { name: 'Youssef Salah', role: 'IT Manager', roleAr: 'مدير تقنية المعلومات' },
-  { name: 'Shahd Adel', role: 'Account Manager', roleAr: 'مدير حسابات' },
-  { name: 'Rahma Bakry', role: 'Content Creator', roleAr: 'صانع محتوى' },
+  { name: 'Shahd Adel', role: 'Account Manager', roleAr: 'مدير حسابات', img: '/shahd.jpeg' },
+  { name: 'Rahma Bakry', role: 'Content Creator', roleAr: 'صانع محتوى', img: '/rahma%20bakry.jpeg' },
   { name: 'Mahmoud Zobaa', role: 'Content Creator', roleAr: 'صانع محتوى' },
-  { name: 'Menna Mohsen', role: 'Video Editor', roleAr: 'محرّر فيديو' },
+  { name: 'Menna Mohsen', role: 'Video Editor', roleAr: 'محرّر فيديو', img: '/menna%20mohsen.jpeg' },
 ]
 
 // Initials from a name, e.g. "Ahmed Yasser" → "AY"
@@ -44,16 +45,25 @@ export default function Team() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 stagger">
           {team.map(m => (
             <div key={m.name} className="reveal card-hover group border border-white/6 overflow-hidden rounded-2xl" style={{ background: 'rgb(var(--surface-rgb))' }}>
-              {/* Initials avatar (photos intentionally omitted for now) */}
-              <div className="relative overflow-hidden" style={{ paddingBottom: '75%' }}>
-                <div
-                  className="absolute inset-0 flex items-center justify-center"
-                  style={{ background: 'linear-gradient(135deg, rgb(var(--surface2-rgb)) 0%, rgb(var(--bg-rgb)) 100%)' }}
-                >
-                  <span className="font-bebas text-6xl sm:text-7xl text-brand-red/70 group-hover:text-brand-red group-hover:scale-105 transition-all duration-500">
-                    {initials(m.name)}
-                  </span>
-                </div>
+              {/* Photo when available, otherwise an initials avatar */}
+              <div className="relative overflow-hidden" style={{ paddingBottom: '100%' }}>
+                {m.img ? (
+                  <img
+                    src={m.img}
+                    alt={m.name}
+                    loading="lazy"
+                    className="absolute inset-0 w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                  />
+                ) : (
+                  <div
+                    className="absolute inset-0 flex items-center justify-center"
+                    style={{ background: 'linear-gradient(135deg, rgb(var(--surface2-rgb)) 0%, rgb(var(--bg-rgb)) 100%)' }}
+                  >
+                    <span className="font-bebas text-6xl sm:text-7xl text-brand-red/70 group-hover:text-brand-red group-hover:scale-105 transition-all duration-500">
+                      {initials(m.name)}
+                    </span>
+                  </div>
+                )}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
               </div>
               <div className="p-5" style={{ ['--fg-rgb']: '255 255 255' }}>
