@@ -9,60 +9,6 @@ const tabCats = [...new Set(videos.map(v => v.category))]
 import VideoCard from '../components/VideoCard'
 import useReveal from '../hooks/useReveal'
 
-// Typewriter — types the slogan out, pauses, deletes it, then loops.
-// `segments` = [{ text, className }] so a middle line can stay red while typing.
-function Typewriter({ segments }) {
-  const full = segments.map(s => s.text).join('')
-  const [count, setCount] = useState(0)
-  const [deleting, setDeleting] = useState(false)
-
-  // Restart the animation whenever the text changes (e.g. language switch)
-  useEffect(() => {
-    setCount(0)
-    setDeleting(false)
-  }, [full])
-
-  useEffect(() => {
-    const typeSpeed = 55
-    const deleteSpeed = 28
-    const pauseAtEnd = 2000
-    const pauseAtStart = 700
-
-    let delay = typeSpeed
-    if (!deleting && count >= full.length) delay = pauseAtEnd
-    else if (deleting && count <= 0) delay = pauseAtStart
-    else if (deleting) delay = deleteSpeed
-
-    const id = setTimeout(() => {
-      if (!deleting && count < full.length) setCount(c => c + 1)
-      else if (!deleting && count >= full.length) setDeleting(true)
-      else if (deleting && count > 0) setCount(c => c - 1)
-      else setDeleting(false)
-    }, delay)
-
-    return () => clearTimeout(id)
-  }, [count, deleting, full])
-
-  // Slice `count` characters across the styled segments
-  let remaining = count
-  return (
-    <span className="inline-flex flex-wrap justify-center items-stretch" style={{ whiteSpace: 'pre-line' }}>
-      <span>
-        {segments.map((s, i) => {
-          const take = Math.max(0, Math.min(s.text.length, remaining))
-          remaining -= s.text.length
-          return (
-            <span key={i} className={s.className}>
-              {s.text.slice(0, take)}
-            </span>
-          )
-        })}
-      </span>
-      <span className="type-caret" aria-hidden="true" />
-    </span>
-  )
-}
-
 // Animated counter
 function Counter({ target, suffix }) {
   const [count, setCount] = useState(0)
@@ -96,21 +42,8 @@ function Counter({ target, suffix }) {
 
 
 export default function Home() {
-  const { t, lang } = useLang()
+  const { t } = useLang()
   const heroRef = useRef(null)
-
-  // Hero slogan split into segments so the middle line stays red as it types
-  const heroSegments = lang === 'ar'
-    ? [
-        { text: 'نحن لا نصنع\nمحتوى.\n' },
-        { text: 'نحن نصنع علامات', className: 'text-brand-red' },
-        { text: '\nيتذكرها الناس.' },
-      ]
-    : [
-        { text: "WE DON'T CREATE\nCONTENT.\n" },
-        { text: 'WE CREATE BRANDS', className: 'text-brand-red' },
-        { text: '\nPEOPLE REMEMBER.' },
-      ]
   const revealRef = useReveal()
 
   // Featured-videos category navigation
@@ -138,7 +71,7 @@ export default function Home() {
         <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 0 }}>
           <video
             className="absolute inset-0 w-full h-full object-cover"
-            src="/logomotion-landscape-1080p.mp4"
+            src="/hero-cashback.mp4"
             autoPlay
             muted
             loop
@@ -153,8 +86,9 @@ export default function Home() {
 
         {/* Hero content — top-aligned so the logo motion (center) stays visible */}
         <div ref={heroRef} className="relative z-10 text-center px-4 sm:px-6 max-w-5xl mx-auto">
-          <h1 className="font-bebas text-[clamp(2.5rem,8vw,6rem)] leading-none text-white text-shadow mb-6 min-h-[4.5em]">
-            <Typewriter key={lang} segments={heroSegments} />
+          <h1 className="font-bebas text-[clamp(2.5rem,8vw,6rem)] leading-none text-white text-shadow mb-6">
+            {t(<>WE DON'T CREATE<br />CONTENT.<br /><span className="text-brand-red">WE CREATE BRANDS</span><br />PEOPLE REMEMBER.</>,
+               <>نحن لا نصنع<br />محتوى.<br /><span className="text-brand-red">نحن نصنع علامات</span><br />يتذكرها الناس.</>)}
           </h1>
           <p className="text-brand-gray text-base sm:text-lg max-w-xl mx-auto mb-10">
             {t('Creative Studio for Marketing, Branding, Video & Ads', 'استوديو إبداعي للتسويق والهوية البصرية والفيديو والإعلانات')}
@@ -192,7 +126,7 @@ export default function Home() {
       </section>
 
       {/* ─── MISSION ──────────────────────────────────────────────── */}
-      <section ref={revealRef} className="py-24 px-4 sm:px-6 max-w-7xl mx-auto">
+      <section ref={revealRef} className="py-16 sm:py-24 px-4 sm:px-6 max-w-7xl mx-auto">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div>
             <p className="text-brand-red text-[10px] tracking-[0.4em] uppercase mb-4">{t('Our Mission', 'مهمتنا')}</p>
@@ -222,7 +156,7 @@ export default function Home() {
       </section>
 
       {/* ─── FEATURED VIDEOS ─────────────────────────────────────── */}
-      <section className="py-20 px-4 sm:px-6" style={{ background: 'rgb(var(--bg2-rgb))' }}>
+      <section className="py-14 sm:py-20 px-4 sm:px-6" style={{ background: 'rgb(var(--bg2-rgb))' }}>
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-8">
             <p className="text-brand-red text-[10px] tracking-[0.4em] uppercase mb-3">{t('Selected Works', 'أعمال مختارة')}</p>
@@ -325,7 +259,7 @@ export default function Home() {
       </section>
 
       {/* ─── PROCESS CTA ─────────────────────────────────────────── */}
-      <section className="py-24 px-4 sm:px-6 relative overflow-hidden">
+      <section className="py-16 sm:py-24 px-4 sm:px-6 relative overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
           <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', width: '600px', height: '600px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(212,175,55,0.08) 0%, transparent 70%)' }} />
         </div>

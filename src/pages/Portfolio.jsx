@@ -26,7 +26,7 @@ export default function Portfolio() {
   return (
     <div>
       {/* Header */}
-      <section className="pt-36 pb-20 px-4 sm:px-6 text-center" style={{ background: 'linear-gradient(180deg, rgb(var(--surface-rgb)) 0%, rgb(var(--bg-rgb)) 100%)' }}>
+      <section className="pt-28 pb-14 sm:pt-36 sm:pb-20 px-4 sm:px-6 text-center" style={{ background: 'linear-gradient(180deg, rgb(var(--surface-rgb)) 0%, rgb(var(--bg-rgb)) 100%)' }}>
         <p className="text-brand-red text-[10px] tracking-[0.5em] uppercase mb-4">{t('Our Work', 'أعمالنا')}</p>
         <h1 className="font-bebas text-6xl sm:text-8xl text-white mb-4">
           {t(<>SELECTED <span className="text-brand-red">WORKS</span></>, <>أعمال <span className="text-brand-red">مختارة</span></>)}
@@ -92,7 +92,7 @@ export default function Portfolio() {
       </section>
 
       {/* Director's Cut */}
-      <section className="py-20 px-4 sm:px-6" style={{ background: 'rgb(var(--bg2-rgb))', borderTop: '1px solid rgb(var(--fg-rgb) / 0.06)' }}>
+      <section className="py-14 sm:py-20 px-4 sm:px-6" style={{ background: 'rgb(var(--bg2-rgb))', borderTop: '1px solid rgb(var(--fg-rgb) / 0.06)' }}>
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center justify-between mb-10">
             <div>
@@ -143,7 +143,7 @@ export default function Portfolio() {
       </section>
 
       {/* CTA */}
-      <section className="py-20 px-4 text-center">
+      <section className="py-14 sm:py-20 px-4 text-center">
         <h2 className="font-bebas text-5xl text-white mb-4">
           {t(<>READY TO <span className="text-brand-red">COLLABORATE?</span></>, <>جاهز <span className="text-brand-red">للتعاون؟</span></>)}
         </h2>

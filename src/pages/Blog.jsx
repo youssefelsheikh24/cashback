@@ -37,7 +37,7 @@ export default function Blog() {
 
   return (
     <div>
-      <section className="pt-36 pb-20 px-4 sm:px-6" style={{ background: 'linear-gradient(180deg,rgb(var(--surface-rgb)) 0%,rgb(var(--bg-rgb)) 100%)' }}>
+      <section className="pt-28 pb-14 sm:pt-36 sm:pb-20 px-4 sm:px-6" style={{ background: 'linear-gradient(180deg,rgb(var(--surface-rgb)) 0%,rgb(var(--bg-rgb)) 100%)' }}>
         <div className="max-w-7xl mx-auto">
           <h1 className="font-bebas text-7xl sm:text-9xl leading-none mb-3">
             {t(<>INSIGHTS & <span className="text-brand-red">DISPATCHES</span></>, <>رؤى <span className="text-brand-red">ومقالات</span></>)}

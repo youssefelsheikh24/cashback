@@ -172,20 +172,6 @@ body {
   }
 }
 
-/* Typewriter cursor (hero slogan) */
-.type-caret {
-  display: inline-block;
-  width: 0.06em;
-  margin-left: 0.05em;
-  background: var(--red);
-  align-self: stretch;
-  animation: caret-blink 1s steps(1) infinite;
-}
-@keyframes caret-blink {
-  0%, 50% { opacity: 1; }
-  50.01%, 100% { opacity: 0; }
-}
-
 /* Site-wide rounded styling for form fields */
 input, textarea, select {
   border-radius: 0.75rem;

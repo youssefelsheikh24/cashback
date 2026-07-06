@@ -84,7 +84,7 @@ export default function Services() {
   return (
     <div>
       {/* Header */}
-      <section className="relative pt-36 pb-28 px-4 sm:px-6 overflow-hidden" style={{ background: 'linear-gradient(135deg, rgb(var(--surface-rgb)) 0%, rgb(var(--bg-rgb)) 60%)' }}>
+      <section className="relative pt-28 pb-16 sm:pt-36 sm:pb-28 px-4 sm:px-6 overflow-hidden" style={{ background: 'linear-gradient(135deg, rgb(var(--surface-rgb)) 0%, rgb(var(--bg-rgb)) 60%)' }}>
         <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(212,175,55,0.15) 40px, rgba(212,175,55,0.15) 41px)' }} />
         <div className="max-w-7xl mx-auto relative z-10">
           <p className="text-brand-red text-[10px] tracking-[0.5em] uppercase mb-4">{t('Capabilities', 'إمكاناتنا')}</p>
@@ -98,12 +98,12 @@ export default function Services() {
       </section>
 
       {/* Department Cards */}
-      <section ref={revealRef} className="py-20 px-4 sm:px-6 max-w-7xl mx-auto">
+      <section ref={revealRef} className="py-14 sm:py-20 px-4 sm:px-6 max-w-7xl mx-auto">
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 stagger">
           {departments.map((d, i) => (
             <div
               key={d.title}
-              className="reveal card-hover p-8 border border-white/8 group"
+              className="reveal card-hover p-6 sm:p-8 border border-white/8 group"
               style={{ background: 'rgb(var(--surface-rgb))' }}
             >
               <div className="text-brand-gray group-hover:text-brand-red transition-colors duration-300 mb-6">
@@ -127,7 +127,7 @@ export default function Services() {
       </section>
 
       {/* Stats */}
-      <section className="py-20 px-4 sm:px-6" style={{ background: 'rgb(var(--bg2-rgb))', borderTop: '1px solid rgb(var(--fg-rgb) / 0.06)' }}>
+      <section className="py-14 sm:py-20 px-4 sm:px-6" style={{ background: 'rgb(var(--bg2-rgb))', borderTop: '1px solid rgb(var(--fg-rgb) / 0.06)' }}>
         <div className="max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
           {stats.map(s => (
             <div key={s.label} className="border border-white/6 py-10 px-4 rounded-2xl" style={{ background: 'rgb(var(--surface-rgb))' }}>
@@ -139,15 +139,15 @@ export default function Services() {
       </section>
 
       {/* Process */}
-      <section className="py-24 px-4 sm:px-6 max-w-7xl mx-auto">
-        <div className="text-center mb-16">
+      <section className="py-16 sm:py-24 px-4 sm:px-6 max-w-7xl mx-auto">
+        <div className="text-center mb-12 sm:mb-16">
           <p className="text-brand-red text-[10px] tracking-[0.4em] uppercase mb-3">{t('How We Work', 'كيف نعمل')}</p>
           <h2 className="font-bebas text-5xl text-white">{t('THE METHODOLOGY', 'منهجية العمل')}</h2>
         </div>
         <div className="relative max-w-2xl mx-auto">
           <div className="absolute left-4 rtl:left-auto rtl:right-4 top-0 bottom-0 w-px bg-brand-red/20" />
           {PROCESS.map((step, i) => (
-            <div key={step.en} className="relative flex gap-8 mb-10 last:mb-0">
+            <div key={step.en} className="relative flex gap-5 sm:gap-8 mb-10 last:mb-0">
               <div className="flex-shrink-0 w-8 h-8 border border-brand-red flex items-center justify-center bg-brand-black relative z-10">
                 <span className="font-bebas text-brand-red text-sm">{String(i + 1).padStart(2, '0')}</span>
               </div>

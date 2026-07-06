@@ -23,7 +23,7 @@ export default function Team() {
   const revealRef = useReveal()
   return (
     <div>
-      <section className="pt-36 pb-28 px-4 sm:px-6 text-center relative overflow-hidden" style={{ background: 'linear-gradient(180deg,rgb(var(--surface-rgb)) 0%,rgb(var(--bg-rgb)) 100%)' }}>
+      <section className="pt-28 pb-16 sm:pt-36 sm:pb-28 px-4 sm:px-6 text-center relative overflow-hidden" style={{ background: 'linear-gradient(180deg,rgb(var(--surface-rgb)) 0%,rgb(var(--bg-rgb)) 100%)' }}>
         <div className="absolute inset-0 opacity-5" style={{ background: 'radial-gradient(circle at 50% 50%, #D4AF37 0%, transparent 70%)' }} />
         <div className="relative z-10">
           <p className="text-brand-red text-[10px] tracking-[0.5em] uppercase mb-4">{t('The Movement', 'الحركة')}</p>
@@ -36,7 +36,7 @@ export default function Team() {
         </div>
       </section>
 
-      <section ref={revealRef} className="py-20 px-4 sm:px-6 max-w-7xl mx-auto">
+      <section ref={revealRef} className="py-14 sm:py-20 px-4 sm:px-6 max-w-7xl mx-auto">
         <div>
           <p className="text-brand-red text-[10px] tracking-[0.4em] uppercase mb-2">{t('The Syndicate', 'النقابة')}</p>
           <h2 className="font-bebas text-4xl text-white mb-12">{t('STORYTELLING & TECHNICIANS', 'رواة وحرفيون')}</h2>
@@ -65,7 +65,7 @@ export default function Team() {
         </div>
       </section>
 
-      <section className="py-16 px-4 sm:px-6 text-center border-t border-white/6">
+      <section className="py-12 sm:py-16 px-4 sm:px-6 text-center border-t border-white/6">
         <h2 className="font-bebas text-4xl text-white mb-4">{t('JOIN THE DARKROOM', 'انضم إلى غرفة التحميض')}</h2>
         <p className="text-brand-gray text-sm mb-8 max-w-md mx-auto">{t("We're always looking for obsessive visual storytellers. If you live and breathe cinema, let's talk.", 'نبحث دائمًا عن رواة بصريين شغوفين. إن كنت تعيش السينما وتتنفسها، فلنتحدث.')}</p>
         <Link to="/contact" className="btn-primary inline-block px-10">{t('Get In Touch', 'تواصل معنا')}</Link>

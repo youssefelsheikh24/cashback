@@ -9,7 +9,6 @@ const navCol = [
     { en: 'Portfolio', ar: 'الأعمال', to: '/portfolio' },
   ]},
   { en: 'Work', ar: 'أعمالنا', links: [
-    { en: 'Case Studies', ar: 'دراسات الحالة', to: '/case-studies' },
     { en: 'Team', ar: 'الفريق', to: '/team' },
     { en: 'Blog', ar: 'المدونة', to: '/blog' },
   ]},
@@ -28,7 +27,7 @@ export default function Footer() {
   const isStudio = useLocation().pathname === '/studio'
   return (
     <footer style={{ background: 'rgb(var(--bg3-rgb))', borderTop: '1px solid rgb(var(--fg-rgb) / 0.06)' }}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
         <div className="grid grid-cols-1 md:grid-cols-5 gap-10">
           {/* Brand */}
           <div className="md:col-span-1">
@@ -76,14 +75,14 @@ export default function Footer() {
 
           {/* Link columns */}
           {navCol.map(col => (
-            <div key={col.label}>
+            <div key={col.en}>
               <h4 className="text-[10px] font-semibold tracking-[0.2em] uppercase text-brand-gray mb-4">
                 {t(col.en, col.ar)}
               </h4>
-              <ul className="flex flex-col gap-2">
+              <ul className="flex flex-col gap-1">
                 {col.links.map(l => (
                   <li key={l.en}>
-                    <Link to={l.to} className="text-xs text-white/60 hover:text-white transition-colors duration-200">
+                    <Link to={l.to} className="inline-block py-1 text-xs text-white/60 hover:text-white transition-colors duration-200">
                       {t(l.en, l.ar)}
                     </Link>
                   </li>

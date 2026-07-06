@@ -6,7 +6,6 @@ const links = [
   { en: 'Home', ar: 'الرئيسية', to: '/' },
   { en: 'Services', ar: 'الخدمات', to: '/services' },
   { en: 'Portfolio', ar: 'الأعمال', to: '/portfolio' },
-  { en: 'Case Studies', ar: 'دراسات الحالة', to: '/case-studies' },
   { en: 'Team', ar: 'الفريق', to: '/team' },
   { en: 'Contact', ar: 'تواصل', to: '/contact' },
 ]

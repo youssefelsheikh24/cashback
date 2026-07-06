@@ -150,7 +150,7 @@ export default function Contact() {
   return (
     <div>
       {/* Header */}
-      <section className="pt-36 pb-24 px-4 sm:px-6 text-center" style={{ background: 'linear-gradient(180deg, rgb(var(--surface-rgb)) 0%, rgb(var(--bg-rgb)) 100%)' }}>
+      <section className="pt-28 pb-16 sm:pt-36 sm:pb-24 px-4 sm:px-6 text-center" style={{ background: 'linear-gradient(180deg, rgb(var(--surface-rgb)) 0%, rgb(var(--bg-rgb)) 100%)' }}>
         <p className="text-brand-red text-[10px] tracking-[0.5em] uppercase mb-4">{t('Get In Touch', 'تواصل معنا')}</p>
         <h1 className="font-bebas text-6xl sm:text-8xl text-white mb-4 leading-none">
           {t(<>LET'S CREATE SOMETHING <span className="text-brand-red">ICONIC.</span></>, <>لنصنع شيئًا <span className="text-brand-red">استثنائيًا.</span></>)}
@@ -176,10 +176,10 @@ export default function Contact() {
       </div>
 
       {/* Booking */}
-      <section ref={revealRef} className="py-20 px-4 sm:px-6 max-w-7xl mx-auto">
+      <section ref={revealRef} className="py-14 sm:py-20 px-4 sm:px-6 max-w-7xl mx-auto">
         <div className="grid lg:grid-cols-2 gap-8">
           {/* Booking details form */}
-          <div className="reveal p-8 border border-white/8 rounded-3xl" style={{ background: 'rgb(var(--surface-rgb))' }}>
+          <div className="reveal p-6 sm:p-8 border border-white/8 rounded-3xl" style={{ background: 'rgb(var(--surface-rgb))' }}>
             <h2 className="font-bebas text-3xl text-white mb-2">{t('BOOK APPOINTMENT', 'احجز موعد')}</h2>
             <p className="text-xs text-brand-gray mb-8 leading-relaxed">
               {t('Tell us about your brand and pick a slot. Our creative directors will confirm your discovery call within 24 hours.', 'أخبرنا عن علامتك واختر موعدًا. سيؤكّد مديرونا الإبداعيون مكالمة التعارف خلال 24 ساعة.')}
@@ -238,7 +238,7 @@ export default function Contact() {
           </div>
 
           {/* Date & time picker */}
-          <div className="reveal p-8 border border-white/8 rounded-3xl" style={{ background: 'rgb(var(--surface-rgb))', transitionDelay: '0.1s' }}>
+          <div className="reveal p-6 sm:p-8 border border-white/8 rounded-3xl" style={{ background: 'rgb(var(--surface-rgb))', transitionDelay: '0.1s' }}>
             <h2 className="font-bebas text-3xl text-white mb-2">{t('SELECT DATE & TIME', 'اختر التاريخ والوقت')}</h2>
             <p className="text-xs text-brand-gray mb-8 leading-relaxed">
               {t('Schedule a 30-minute discovery call with our production team.', 'احجز مكالمة تعارف مدتها 30 دقيقة مع فريق الإنتاج لدينا.')}
