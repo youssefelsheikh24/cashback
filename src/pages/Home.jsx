@@ -1,12 +1,13 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { videos, stats, embedUrl, categoriesAr } from '../data/projects'
+import { videos, stats, categoriesAr } from '../data/projects'
 import { clientLogos } from '../data/clients'
 import { useLang } from '../i18n/LanguageContext'
 
 // Distinct categories that have at least one video (used for the featured tabs)
 const tabCats = [...new Set(videos.map(v => v.category))]
 import VideoCard from '../components/VideoCard'
+import VideoPlayer from '../components/VideoPlayer'
 import useReveal from '../hooks/useReveal'
 
 // Animated counter
@@ -183,28 +184,7 @@ export default function Home() {
           {/* Main autoplay video of the active category */}
           {mainVideo && (
             <div className="rounded-3xl overflow-hidden border border-white/8 bg-black shadow-2xl">
-              <div className="video-ratio" style={{ borderRadius: 0 }}>
-                {mainVideo.src ? (
-                  <video
-                    key={mainVideo.src}
-                    src={mainVideo.src}
-                    poster={mainVideo.poster}
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    controls
-                  />
-                ) : (
-                  <iframe
-                    key={mainVideo.youtubeId}
-                    src={embedUrl(mainVideo, { mute: true, loop: true })}
-                    title={mainVideo.title}
-                    allow="autoplay; encrypted-media; picture-in-picture"
-                    allowFullScreen
-                  />
-                )}
-              </div>
+              <VideoPlayer key={mainVideo.id} video={mainVideo} rounded={false} />
               <div className="p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
                   {mainVideo.tag && (

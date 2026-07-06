@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { embedUrl } from '../data/projects'
+import VideoPlayer from './VideoPlayer'
 
 export default function VideoModal({ video, onClose }) {
   useEffect(() => {
@@ -31,18 +31,7 @@ export default function VideoModal({ video, onClose }) {
         </button>
 
         {/* Video */}
-        <div className="video-ratio">
-          {video.src ? (
-            <video src={video.src} poster={video.poster} autoPlay controls playsInline />
-          ) : (
-            <iframe
-              src={embedUrl(video)}
-              title={video.title}
-              allow="autoplay; encrypted-media; picture-in-picture"
-              allowFullScreen
-            />
-          )}
-        </div>
+        <VideoPlayer video={video} loop={false} />
 
         {/* Meta below video */}
         <div className="mt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
