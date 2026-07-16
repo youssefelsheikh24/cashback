@@ -3,16 +3,17 @@ import { Link } from 'react-router-dom'
 import { useLang } from '../i18n/LanguageContext'
 
 const team = [
-  { name: 'Ahmed Yasser', role: 'Director', roleAr: 'مخرج' },
+  { name: 'Ahmed Yasser', role: 'Director', roleAr: 'مخرج', img: '/team/ahmed%20yasser%20.jpg' },
   { name: 'Youssef Tarek', role: 'Videographer', roleAr: 'مصوّر فيديو' },
   { name: 'Amir Ayman', role: 'Videographer', roleAr: 'مصوّر فيديو' },
   { name: 'Ebram Samy', role: 'Photographer', roleAr: 'مصوّر فوتوغرافي' },
-  { name: 'Saif Hossam', role: 'Finance Manager', roleAr: 'مدير مالي' },
+  { name: 'Saif Hossam', role: 'Finance Manager', roleAr: 'مدير مالي', img: '/team/saif%20el%20ghodakly%20.jpg' },
   { name: 'Youssef Salah', role: 'IT Manager', roleAr: 'مدير تقنية المعلومات' },
-  { name: 'Shahd Adel', role: 'Account Manager', roleAr: 'مدير حسابات', img: '/shahd.jpeg' },
-  { name: 'Rahma Bakry', role: 'Content Creator', roleAr: 'صانع محتوى', img: '/rahma%20bakry.jpeg' },
-  { name: 'Mahmoud Zobaa', role: 'Content Creator', roleAr: 'صانع محتوى' },
-  { name: 'Menna Mohsen', role: 'Video Editor', roleAr: 'محرّر فيديو', img: '/menna%20mohsen.jpeg' },
+  { name: 'Shahd Adel', role: 'Account Manager', roleAr: 'مدير حسابات' },
+  { name: 'Rahma Bakry', role: 'Content Creator', roleAr: 'صانع محتوى', img: '/team/rahma%20bakry%20.jpg' },
+  { name: 'Mahmoud Zobaa', role: 'Content Creator', roleAr: 'صانع محتوى', img: '/team/mahmoud%20zoba3.jpg' },
+  { name: 'Menna Mohsen', role: 'Video Editor', roleAr: 'محرّر فيديو', img: '/team/menna%20mohsen%20.jpg' },
+  { name: 'Osama Mostafa', role: 'Video Editor', roleAr: 'محرّر فيديو', img: '/team/osama%20mostafa.jpg' },
 ]
 
 // Initials from a name, e.g. "Ahmed Yasser" → "AY"
