@@ -10,7 +10,7 @@ const team = [
   { name: 'Saif Hossam', role: 'Finance Manager', roleAr: 'مدير مالي', img: '/team/saif%20el%20ghodakly%20.jpg' },
   { name: 'Youssef Salah', role: 'IT Manager', roleAr: 'مدير تقنية المعلومات' },
   { name: 'Shahd Adel', role: 'Account Manager', roleAr: 'مدير حسابات' },
-  { name: 'Rahma Bakry', role: 'Content Creator', roleAr: 'صانع محتوى', img: '/team/rahma%20bakry%20.jpg' },
+  { name: 'Rahma Bakry', role: 'Content Creator', roleAr: 'صانع محتوى', img: '/team/rahma%20bakry%20%20.JPG' },
   { name: 'Mahmoud Zobaa', role: 'Content Creator', roleAr: 'صانع محتوى', img: '/team/mahmoud%20zoba3.jpg' },
   { name: 'Menna Mohsen', role: 'Video Editor', roleAr: 'محرّر فيديو', img: '/team/menna%20mohsen%20.jpg' },
   { name: 'Osama Mostafa', role: 'Video Editor', roleAr: 'محرّر فيديو', img: '/team/osama%20mostafa.jpg' },
