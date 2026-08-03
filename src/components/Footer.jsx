@@ -37,12 +37,12 @@ export default function Footer() {
                 <span className="flex items-center h-20">
                   <img
                     src="/cashstudio-white.png"
-                    alt="CashBack Studio"
+                    alt="CashBack"
                     className="logo-dark h-14 w-auto object-contain"
                   />
                   <img
                     src="/cashstudio.png"
-                    alt="CashBack Studio"
+                    alt="CashBack"
                     className="logo-light h-14 w-auto object-contain"
                   />
                 </span>
@@ -95,7 +95,7 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="mt-12 pt-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-[10px] tracking-widest uppercase text-white/30">
-            {t('© 2024 CashBack Studio. All Rights Reserved.', '© 2024 استوديو كاش باك. جميع الحقوق محفوظة.')}
+            {t('© 2024 CashBack. All Rights Reserved.', '© 2024 كاش باك. جميع الحقوق محفوظة.')}
           </p>
           <div className="flex items-center gap-2">
             <span className="w-1.5 h-1.5 bg-brand-red rounded-full animate-pulse" />

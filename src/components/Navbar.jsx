@@ -58,12 +58,12 @@ export default function Navbar() {
             <span className="flex items-center h-16">
               <img
                 src="/cashstudio-white.png"
-                alt="CashBack Studio"
+                alt="CashBack"
                 className="logo-dark h-11 w-auto object-contain"
               />
               <img
                 src="/cashstudio.png"
-                alt="CashBack Studio"
+                alt="CashBack"
                 className="logo-light h-11 w-auto object-contain"
               />
             </span>

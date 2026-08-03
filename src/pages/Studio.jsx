@@ -139,7 +139,7 @@ export default function Studio() {
       <section className="relative min-h-screen flex items-center overflow-hidden">
         <img
           className="absolute inset-0 w-full h-full object-cover"
-          src="/locations/main.jpeg" alt="CashBack Studio location"
+          src="/locations/main.jpeg" alt="CashBack location"
         />
         {/* Red cinematic wash + vignette */}
         <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgb(var(--bg-rgb)/0.55) 0%, rgb(var(--bg-rgb)/0.2) 40%, rgb(var(--bg-rgb)/0.95) 100%)' }} />
