@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+import { Link } from 'react-router-dom'
 import { videos, categories, categoriesAr, thumbUrl } from '../data/projects'
 import VideoCard from '../components/VideoCard'
 import { useLang } from '../i18n/LanguageContext'
@@ -12,16 +13,12 @@ export default function Portfolio() {
 
   useEffect(() => {
     setVisible(false)
-    const t = setTimeout(() => {
+    const timer = setTimeout(() => {
       setFiltered(active === 'All' ? videos : videos.filter(v => v.category === active))
       setVisible(true)
     }, 150)
-    return () => clearTimeout(t)
+    return () => clearTimeout(timer)
   }, [active])
-
-  useEffect(() => {
-    setVisible(true)
-  }, [])
 
   return (
     <div>
@@ -115,7 +112,7 @@ export default function Portfolio() {
                     src={thumbUrl(v)}
                     alt={v.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    onError={e => { e.target.src = `https://picsum.photos/seed/${v.id + 10}/320/180` }}
+                    onError={e => { e.target.onerror = null; e.target.src = `https://picsum.photos/seed/${v.id + 10}/320/180` }}
                   />
                   <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors" />
                   <div className="absolute inset-0 flex items-center justify-center">
@@ -148,7 +145,7 @@ export default function Portfolio() {
           {t(<>READY TO <span className="text-brand-red">COLLABORATE?</span></>, <>جاهز <span className="text-brand-red">للتعاون؟</span></>)}
         </h2>
         <p className="text-brand-gray mb-8 max-w-md mx-auto text-sm">{t("Let's build something that demands attention.", 'لنصنع شيئًا يفرض الانتباه.')}</p>
-        <a href="/contact" className="btn-primary inline-block px-10">{t('Book a Call', 'احجز مكالمة')}</a>
+        <Link to="/contact" className="btn-primary inline-block px-10">{t('Book a Call', 'احجز مكالمة')}</Link>
       </section>
     </div>
   )

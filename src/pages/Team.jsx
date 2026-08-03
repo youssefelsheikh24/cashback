@@ -26,7 +26,7 @@ export default function Team() {
   return (
     <div>
       <section className="pt-28 pb-16 sm:pt-36 sm:pb-28 px-4 sm:px-6 text-center relative overflow-hidden" style={{ background: 'linear-gradient(180deg,rgb(var(--surface-rgb)) 0%,rgb(var(--bg-rgb)) 100%)' }}>
-        <div className="absolute inset-0 opacity-5" style={{ background: 'radial-gradient(circle at 50% 50%, #D4AF37 0%, transparent 70%)' }} />
+        <div className="absolute inset-0 opacity-5" style={{ background: 'radial-gradient(circle at 50% 50%, rgb(var(--accent-rgb)) 0%, transparent 70%)' }} />
         <div className="relative z-10">
           <p className="text-brand-red text-[10px] tracking-[0.5em] uppercase mb-4">{t('The Movement', 'الحركة')}</p>
           <h1 className="font-bebas text-6xl sm:text-9xl text-white leading-none mb-6">
@@ -48,22 +48,22 @@ export default function Team() {
             <div key={m.name} className="reveal card-hover group border border-white/6 overflow-hidden rounded-2xl" style={{ background: 'rgb(var(--surface-rgb))' }}>
               {/* Photo when available, otherwise an initials avatar */}
               <div className="relative overflow-hidden" style={{ paddingBottom: '100%' }}>
-                {m.img ? (
+                <div
+                  className="absolute inset-0 flex items-center justify-center"
+                  style={{ background: 'linear-gradient(135deg, rgb(var(--surface2-rgb)) 0%, rgb(var(--bg-rgb)) 100%)' }}
+                >
+                  <span className="font-bebas text-6xl sm:text-7xl text-brand-red/70 group-hover:text-brand-red group-hover:scale-105 transition-all duration-500">
+                    {initials(m.name)}
+                  </span>
+                </div>
+                {m.img && (
                   <img
                     src={m.img}
                     alt={m.name}
                     loading="lazy"
                     className="absolute inset-0 w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                    onError={e => { e.target.style.display = 'none' }}
                   />
-                ) : (
-                  <div
-                    className="absolute inset-0 flex items-center justify-center"
-                    style={{ background: 'linear-gradient(135deg, rgb(var(--surface2-rgb)) 0%, rgb(var(--bg-rgb)) 100%)' }}
-                  >
-                    <span className="font-bebas text-6xl sm:text-7xl text-brand-red/70 group-hover:text-brand-red group-hover:scale-105 transition-all duration-500">
-                      {initials(m.name)}
-                    </span>
-                  </div>
                 )}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
               </div>

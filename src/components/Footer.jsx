@@ -9,12 +9,11 @@ const navCol = [
     { en: 'Portfolio', ar: 'الأعمال', to: '/portfolio' },
   ]},
   { en: 'Work', ar: 'أعمالنا', links: [
-    { en: 'Team', ar: 'الفريق', to: '/team' },
     { en: 'Blog', ar: 'المدونة', to: '/blog' },
   ]},
   { en: 'Connect', ar: 'تواصل', links: [
-    { en: 'Contact', ar: 'اتصل بنا', to: '/contact' },
-    { en: 'Book Appointment', ar: 'احجز موعد', to: '/contact' },
+    { en: 'Contact Us', ar: 'تواصل معنا', to: '/contact' },
+    { en: 'Social Channels', ar: 'قنوات التواصل', to: '/contact' },
   ]},
   { en: 'Legal', ar: 'قانوني', links: [
     { en: 'Privacy Policy', ar: 'سياسة الخصوصية', to: '/privacy' },

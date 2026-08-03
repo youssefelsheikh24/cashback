@@ -1,46 +1,15 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { videos, stats, categoriesAr } from '../data/projects'
-import { clientLogos } from '../data/clients'
 import { useLang } from '../i18n/LanguageContext'
+import VideoCard from '../components/VideoCard'
+import VideoPlayer from '../components/VideoPlayer'
+import Counter from '../components/Counter'
+import ClientMarquee from '../components/ClientMarquee'
+import useReveal from '../hooks/useReveal'
 
 // Distinct categories that have at least one video (used for the featured tabs)
 const tabCats = [...new Set(videos.map(v => v.category))]
-import VideoCard from '../components/VideoCard'
-import VideoPlayer from '../components/VideoPlayer'
-import useReveal from '../hooks/useReveal'
-
-// Animated counter
-function Counter({ target, suffix }) {
-  const [count, setCount] = useState(0)
-  const ref = useRef(null)
-  const started = useRef(false)
-
-  useEffect(() => {
-    const obs = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting && !started.current) {
-        started.current = true
-        let start = 0
-        const duration = 2000
-        const step = target / (duration / 16)
-        const timer = setInterval(() => {
-          start = Math.min(start + step, target)
-          setCount(Math.floor(start))
-          if (start >= target) clearInterval(timer)
-        }, 16)
-      }
-    }, { threshold: 0.5 })
-    if (ref.current) obs.observe(ref.current)
-    return () => obs.disconnect()
-  }, [target])
-
-  return (
-    <span ref={ref} className="font-bebas text-5xl sm:text-6xl text-brand-red">
-      {count}{suffix}
-    </span>
-  )
-}
-
 
 export default function Home() {
   const { t } = useLang()
@@ -54,9 +23,16 @@ export default function Home() {
 
   // Parallax on hero text
   useEffect(() => {
+    let ticking = false
     const onScroll = () => {
-      if (heroRef.current) {
-        heroRef.current.style.transform = `translateY(${window.scrollY * 0.3}px)`
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          if (heroRef.current) {
+            heroRef.current.style.transform = `translateY(${window.scrollY * 0.3}px)`
+          }
+          ticking = false
+        })
+        ticking = true
       }
     }
     window.addEventListener('scroll', onScroll, { passive: true })
@@ -99,7 +75,7 @@ export default function Home() {
               {t('View Our Work', 'شاهد أعمالنا')}
             </Link>
             <Link to="/contact" className="btn-ghost w-full sm:w-auto text-center">
-              {t('Book Appointment', 'احجز موعد')}
+              {t('Contact Us', 'تواصل معنا')}
             </Link>
           </div>
         </div>
@@ -112,19 +88,7 @@ export default function Home() {
       </section>
 
       {/* ─── CLIENT MARQUEE ─────────────────────────────────────── */}
-      <section style={{ borderTop: '1px solid rgb(var(--fg-rgb) / 0.06)', borderBottom: '1px solid rgb(var(--fg-rgb) / 0.06)', background: 'rgb(var(--bg2-rgb))' }} className="py-4 overflow-hidden">
-        <div className="flex items-center gap-5 animate-marquee whitespace-nowrap" style={{ width: 'max-content' }}>
-          {[...clientLogos, ...clientLogos].map((c, i) => (
-            <div
-              key={i}
-              className="shrink-0 flex items-center justify-center rounded-2xl h-20 px-6 overflow-hidden"
-              style={{ backgroundColor: c.bg }}
-            >
-              <img src={c.src} alt="" loading="lazy" className="max-h-14 w-auto object-contain" />
-            </div>
-          ))}
-        </div>
-      </section>
+      <ClientMarquee />
 
       {/* ─── MISSION ──────────────────────────────────────────────── */}
       <section ref={revealRef} className="py-16 sm:py-24 px-4 sm:px-6 max-w-7xl mx-auto">
@@ -253,7 +217,7 @@ export default function Home() {
             {t('Whether you need a comprehensive digital overhaul or a focused cinematic campaign, our studio is ready to bring your vision to life.', 'سواء كنت تحتاج إلى تحول رقمي شامل أو حملة سينمائية مركّزة، استوديونا جاهز لتحويل رؤيتك إلى واقع.')}
           </p>
           <Link to="/contact" className="btn-primary inline-block text-sm px-10 py-4">
-            {t('Book Appointment', 'احجز موعد')}
+            {t('Contact Us', 'تواصل معنا')}
           </Link>
         </div>
       </section>

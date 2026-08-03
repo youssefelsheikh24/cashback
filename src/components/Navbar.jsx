@@ -6,7 +6,6 @@ const links = [
   { en: 'Home', ar: 'الرئيسية', to: '/' },
   { en: 'Services', ar: 'الخدمات', to: '/services' },
   { en: 'Portfolio', ar: 'الأعمال', to: '/portfolio' },
-  { en: 'Team', ar: 'الفريق', to: '/team' },
   { en: 'Contact', ar: 'تواصل', to: '/contact' },
 ]
 
@@ -22,7 +21,7 @@ export default function Navbar() {
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40)
-    window.addEventListener('scroll', onScroll)
+    window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
@@ -125,7 +124,7 @@ export default function Navbar() {
             )}
           </button>
           <Link to="/contact" className="hidden sm:block btn-primary text-xs">
-            {t('Book Appointment', 'احجز موعد')}
+            {t('Contact Us', 'تواصل معنا')}
           </Link>
           <button
             onClick={() => setMenuOpen(!menuOpen)}
@@ -160,7 +159,7 @@ export default function Navbar() {
           ))}
 
           <Link to="/contact" className="btn-primary text-center mt-4">
-            {t('Book Appointment', 'احجز موعد')}
+            {t('Contact Us', 'تواصل معنا')}
           </Link>
         </nav>
       </div>

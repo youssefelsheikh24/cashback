@@ -1,151 +1,85 @@
 import { useState } from 'react'
 import useReveal from '../hooks/useReveal'
-import { clientLogos } from '../data/clients'
 import { useLang } from '../i18n/LanguageContext'
-
-const DAYS = ['S','M','T','W','T','F','S']
-const TIMES = ['10:00 AM', '11:30 AM', '1:00 PM', '2:30 PM', '4:00 PM', '5:00 PM']
-
-// Controlled calendar — date/time live in the parent so the booking form can submit them.
-function Calendar({ selected, time, onSelectDate, onSelectTime }) {
-  const { t, lang } = useLang()
-  const loc = lang === 'ar' ? 'ar-EG' : 'default'
-  const [month, setMonth] = useState(new Date())
-
-  const year = month.getFullYear()
-  const mon = month.getMonth()
-  const monthName = month.toLocaleString('default', { month: 'long', year: 'numeric' }).toUpperCase()
-
-  const firstDay = new Date(year, mon, 1).getDay()
-  const daysInMonth = new Date(year, mon + 1, 0).getDate()
-  const cells = Array(firstDay).fill(null).concat(Array.from({ length: daysInMonth }, (_, i) => i + 1))
-
-  const prev = () => setMonth(new Date(year, mon - 1, 1))
-  const next = () => setMonth(new Date(year, mon + 1, 1))
-  const today = new Date()
-
-  // Compare the selected Date (if any) against the cell being rendered.
-  const isSameDay = (d, day) =>
-    d && d.getFullYear() === year && d.getMonth() === mon && d.getDate() === day
-
-  return (
-    <div>
-      {/* Month nav */}
-      <div className="flex items-center justify-between mb-4">
-        <button onClick={prev} className="text-brand-gray hover:text-white transition-colors p-1">‹</button>
-        <p className="text-xs tracking-widest font-medium">{month.toLocaleString(loc, { month: 'long', year: 'numeric' }).toUpperCase()}</p>
-        <button onClick={next} className="text-brand-gray hover:text-white transition-colors p-1">›</button>
-      </div>
-
-      {/* Day labels */}
-      <div className="grid grid-cols-7 mb-2">
-        {DAYS.map((d, i) => (
-          <div key={i} className="text-center text-[10px] text-brand-gray py-1">{d}</div>
-        ))}
-      </div>
-
-      {/* Cells */}
-      <div className="grid grid-cols-7 gap-1">
-        {cells.map((day, i) => {
-          const isToday = day && today.getDate() === day && today.getMonth() === mon && today.getFullYear() === year
-          const isPast = day && new Date(year, mon, day) < new Date(today.getFullYear(), today.getMonth(), today.getDate())
-          const isSel = isSameDay(selected, day)
-          return (
-            <button
-              key={i}
-              type="button"
-              disabled={!day || isPast}
-              onClick={() => { onSelectDate(new Date(year, mon, day)); onSelectTime(null) }}
-              className={`aspect-square text-xs flex items-center justify-center transition-all duration-150 ${
-                !day ? '' :
-                isPast ? 'text-white/15 cursor-not-allowed' :
-                isSel ? 'bg-brand-red text-white' :
-                isToday ? 'border border-brand-red text-brand-red' :
-                'text-white/70 hover:bg-white/10'
-              }`}
-            >
-              {day || ''}
-            </button>
-          )
-        })}
-      </div>
-
-      {/* Times */}
-      {selected && (
-        <div className="mt-5">
-          <p className="text-[10px] tracking-widest uppercase text-brand-gray mb-3">
-            {t('Available times for', 'الأوقات المتاحة ليوم')} {selected.toLocaleString(loc, { month: 'long' })} {selected.getDate()}
-          </p>
-          <div className="grid grid-cols-2 gap-2">
-            {TIMES.map(t => (
-              <button
-                key={t}
-                type="button"
-                onClick={() => onSelectTime(t)}
-                className={`py-2 text-xs border transition-all duration-150 ${
-                  time === t
-                    ? 'bg-brand-red border-brand-red text-white'
-                    : 'border-white/15 text-white/60 hover:border-brand-red hover:text-white'
-                }`}
-              >
-                {t}
-              </button>
-            ))}
-          </div>
-          {time && (
-            <p className="mt-4 text-xs text-brand-red text-center">
-              ✓ {t('Selected:', 'المحدد:')} {selected.toLocaleString(loc, { month: 'long' })} {selected.getDate()} — {time}
-            </p>
-          )}
-        </div>
-      )}
-    </div>
-  )
-}
+import { WHATSAPP_NUMBER, WhatsApp, Instagram, Facebook, TikTok } from '../data/socials'
+import ClientMarquee from '../components/ClientMarquee'
 
 export default function Contact() {
-  const { t } = useLang()
-  const [form, setForm] = useState({ name: '', company: '', phone: '', email: '' })
-  const [date, setDate] = useState(null)   // Date object for the chosen day
-  const [time, setTime] = useState(null)   // chosen time slot string
-  const [status, setStatus] = useState('idle') // idle | sending | sent | error
-  const [error, setError] = useState('')
+  const { t, lang } = useLang()
+  const isAr = lang === 'ar'
+  const [copiedPhone, setCopiedPhone] = useState(false)
+  const [copiedEmail, setCopiedEmail] = useState(false)
   const revealRef = useReveal()
 
-  const handleChange = e => setForm(f => ({ ...f, [e.target.name]: e.target.value }))
-
-  const handleSubmit = async e => {
-    e.preventDefault()
-    if (!date || !time) {
-      setError(t('Please pick a date and time for your appointment.', 'يرجى اختيار تاريخ ووقت لموعدك.'))
-      return
-    }
-    setError('')
-    setStatus('sending')
-
-    // Human-readable date, e.g. "Monday, July 14, 2026"
-    const dateLabel = date.toLocaleDateString('default', {
-      weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
-    })
-
-    try {
-      const res = await fetch('/api/booking', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ...form,
-          date: dateLabel,
-          dateISO: date.toISOString().slice(0, 10),
-          time,
-        }),
-      })
-      if (!res.ok) throw new Error((await res.json().catch(() => ({}))).error || 'Request failed')
-      setStatus('sent')
-    } catch (err) {
-      setError(t('Something went wrong sending your request. Please try again or contact us directly.', 'حدث خطأ أثناء إرسال طلبك. حاول مرة أخرى أو تواصل معنا مباشرة.'))
-      setStatus('error')
+  const handleCopy = (text, type) => {
+    navigator.clipboard.writeText(text)
+    if (type === 'phone') {
+      setCopiedPhone(true)
+      setTimeout(() => setCopiedPhone(false), 2000)
+    } else {
+      setCopiedEmail(true)
+      setTimeout(() => setCopiedEmail(false), 2000)
     }
   }
+
+  const socialPlatforms = [
+    {
+      id: 'whatsapp',
+      name: 'WhatsApp',
+      handle: '+20 120 343 9058',
+      badge: t('Instant Response', 'رد فوري'),
+      desc: t('Direct chat with our creative directors & production team.', 'محادثة مباشرة مع فريقنا الإبداعي وفريق الإنتاج.'),
+      cta: t('Chat on WhatsApp', 'محادثة عبر واتساب'),
+      href: `https://wa.me/${WHATSAPP_NUMBER}`,
+      accentColor: 'from-emerald-500/20 to-emerald-500/5',
+      borderColor: 'group-hover:border-emerald-500/50',
+      badgeBg: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
+      buttonBg: 'bg-emerald-600 hover:bg-emerald-500 text-white',
+      icon: <WhatsApp className="w-6 h-6 text-emerald-400" />
+    },
+    {
+      id: 'instagram',
+      name: 'Instagram',
+      handle: '@cashhback.marketingagency',
+      badge: t('Reels & Portfolio', 'الأعمال والريمكسات'),
+      desc: t('Follow our cinematic visual showcases and send us a direct message.', 'تابع معارضنا السينمائية وراسلنا مباشرة.'),
+      cta: t('Visit Instagram', 'زيارة إنستغرام'),
+      href: 'https://www.instagram.com/cashhback.marketingagency/',
+      accentColor: 'from-pink-500/20 to-purple-500/5',
+      borderColor: 'group-hover:border-pink-500/50',
+      badgeBg: 'bg-pink-500/10 text-pink-400 border-pink-500/20',
+      buttonBg: 'bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white',
+      icon: <Instagram className="w-6 h-6 text-pink-400" />
+    },
+    {
+      id: 'facebook',
+      name: 'Facebook',
+      handle: 'Cashback Advertising Agency',
+      badge: t('Official Page', 'الصفحة الرسمية'),
+      desc: t('Stay updated with company announcements, reviews and campaign launches.', 'ابقَ على اطلاع بأحدث إعلاناتنا، التقييمات والحملات.'),
+      cta: t('Visit Facebook', 'زيارة فيسبوك'),
+      href: 'https://www.facebook.com/profile.php?id=61587427587361',
+      accentColor: 'from-blue-500/20 to-blue-600/5',
+      borderColor: 'group-hover:border-blue-500/50',
+      badgeBg: 'bg-blue-500/10 text-blue-400 border-blue-500/20',
+      buttonBg: 'bg-blue-600 hover:bg-blue-500 text-white',
+      icon: <Facebook className="w-6 h-6 text-blue-400" />
+    },
+    {
+      id: 'tiktok',
+      name: 'TikTok',
+      handle: '@cashback.9',
+      badge: t('Behind The Scenes', 'كواليس العمل'),
+      desc: t('Watch high-energy production vlogs, creative snippets and studio moments.', 'شاهد كواليس التصوير، المقاطع الإبداعية ولحظات الاستوديو.'),
+      cta: t('Follow on TikTok', 'متابعة على تيك توك'),
+      href: 'https://www.tiktok.com/@cashback.9',
+      accentColor: 'from-cyan-500/20 to-red-500/5',
+      borderColor: 'group-hover:border-cyan-500/50',
+      badgeBg: 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20',
+      buttonBg: 'bg-neutral-800 hover:bg-neutral-700 text-white border border-white/20',
+      icon: <TikTok className="w-6 h-6 text-cyan-400" />
+    }
+  ]
 
   return (
     <div>
@@ -156,94 +90,147 @@ export default function Contact() {
           {t(<>LET'S CREATE SOMETHING <span className="text-brand-red">ICONIC.</span></>, <>لنصنع شيئًا <span className="text-brand-red">استثنائيًا.</span></>)}
         </h1>
         <p className="text-brand-gray max-w-lg mx-auto text-sm leading-relaxed">
-          {t("Ready to elevate your brand's narrative? Whether you're looking for a comprehensive digital overhaul or a focused cinematic campaign, our studio is ready.", 'جاهز للارتقاء بحكاية علامتك؟ سواء أردت تحوّلًا رقميًا شاملًا أو حملة سينمائية مركّزة، استوديونا جاهز.')}
+          {t("Ready to elevate your brand's narrative? Reach out directly via our social media channels or connect via phone and email.", 'جاهز للارتقاء بحكاية علامتك التجارية؟ تواصل معنا مباشرة عبر منصات التواصل الاجتماعي أو عبر الهاتف والبريد الإلكتروني.')}
         </p>
       </section>
 
       {/* Client logos marquee */}
-      <div style={{ borderTop: '1px solid rgb(var(--fg-rgb) / 0.06)', borderBottom: '1px solid rgb(var(--fg-rgb) / 0.06)', background: 'rgb(var(--bg2-rgb))' }} className="py-4 overflow-hidden">
-        <div className="flex items-center gap-5 animate-marquee whitespace-nowrap" style={{ width: 'max-content' }}>
-          {[...clientLogos, ...clientLogos].map((c, i) => (
-            <div
-              key={i}
-              className="shrink-0 flex items-center justify-center rounded-2xl h-20 px-6 overflow-hidden"
-              style={{ backgroundColor: c.bg }}
-            >
-              <img src={c.src} alt="" loading="lazy" className="max-h-14 w-auto object-contain" />
-            </div>
-          ))}
-        </div>
-      </div>
+      <ClientMarquee />
 
-      {/* Booking */}
+      {/* Main Social Media & Contact Section */}
       <section ref={revealRef} className="py-14 sm:py-20 px-4 sm:px-6 max-w-7xl mx-auto">
-        <div className="grid lg:grid-cols-2 gap-8">
-          {/* Booking details form */}
-          <div className="reveal p-6 sm:p-8 border border-white/8 rounded-3xl" style={{ background: 'rgb(var(--surface-rgb))' }}>
-            <h2 className="font-bebas text-3xl text-white mb-2">{t('BOOK APPOINTMENT', 'احجز موعد')}</h2>
-            <p className="text-xs text-brand-gray mb-8 leading-relaxed">
-              {t('Tell us about your brand and pick a slot. Our creative directors will confirm your discovery call within 24 hours.', 'أخبرنا عن علامتك واختر موعدًا. سيؤكّد مديرونا الإبداعيون مكالمة التعارف خلال 24 ساعة.')}
-            </p>
-            {status === 'sent' ? (
-              <div className="text-center py-12">
-                <div className="w-12 h-12 bg-brand-red/10 border border-brand-red flex items-center justify-center mx-auto mb-4">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" strokeWidth="2"><polyline points="20 6 9 17 4 12"/></svg>
+        <div className="grid lg:grid-cols-12 gap-8">
+          
+          {/* Left Column: Social Media Platforms Hub (7 Cols) */}
+          <div className="lg:col-span-7 flex flex-col gap-6">
+            <div className="p-6 sm:p-8 border border-white/8 rounded-3xl h-full flex flex-col justify-between" style={{ background: 'rgb(var(--surface-rgb))' }}>
+              <div>
+                <div className="flex items-center gap-3 mb-2">
+                  <span className="w-2.5 h-2.5 rounded-full bg-brand-red animate-pulse" />
+                  <h2 className="font-bebas text-3xl sm:text-4xl text-white tracking-wide">
+                    {t('CONNECT ON SOCIAL MEDIA', 'تواصل عبر وسائل التواصل')}
+                  </h2>
                 </div>
-                <h3 className="font-bebas text-2xl text-white mb-2">{t('BOOKING SENT', 'تم إرسال الحجز')}</h3>
-                <p className="text-brand-gray text-sm">{t("We'll be in touch within 24 hours to confirm your appointment.", 'سنتواصل معك خلال 24 ساعة لتأكيد موعدك.')}</p>
+                <p className="text-xs text-brand-gray mb-8 leading-relaxed max-w-xl">
+                  {t('Reach out to us directly on your preferred platform. Our team is active across all channels and ready to bring your vision to life.', 'تواصل معنا مباشرة على منصتك المفضلة. فريقنا متواجد دائمًا وجاهز لتحويل رؤيتك إلى واقع.')}
+                </p>
+
+                {/* Social Media Grid */}
+                <div className="grid sm:grid-cols-2 gap-4">
+                  {socialPlatforms.map(s => (
+                    <div
+                      key={s.id}
+                      className={`group relative p-5 rounded-2xl border border-white/10 bg-gradient-to-br ${s.accentColor} hover:bg-black/60 transition-all duration-300 flex flex-col justify-between ${s.borderColor}`}
+                    >
+                      <div>
+                        <div className="flex items-center justify-between mb-3">
+                          <div className="w-10 h-10 rounded-xl bg-black/50 border border-white/10 flex items-center justify-center">
+                            {s.icon}
+                          </div>
+                          <span className={`text-[10px] font-semibold tracking-wider px-2.5 py-1 rounded-full border ${s.badgeBg}`}>
+                            {s.badge}
+                          </span>
+                        </div>
+                        <h3 className="font-bebas text-xl text-white tracking-wide">{s.name}</h3>
+                        <p className="text-[11px] font-mono text-brand-gray mb-2">{s.handle}</p>
+                        <p className="text-xs text-white/60 leading-relaxed mb-4">{s.desc}</p>
+                      </div>
+
+                      <a
+                        href={s.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`w-full py-2.5 px-4 rounded-xl text-xs font-semibold tracking-wider flex items-center justify-center gap-2 transition-all duration-200 shadow-lg ${s.buttonBg}`}
+                      >
+                        <span>{s.cta}</span>
+                        <svg className={`w-3.5 h-3.5 transition-transform duration-200 ${isAr ? 'group-hover:-translate-x-1 rotate-180' : 'group-hover:translate-x-1'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
+                      </a>
+                    </div>
+                  ))}
+                </div>
               </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-                {[
-                  { name: 'name', placeholder: t('Full Name', 'الاسم الكامل'), type: 'text', required: true },
-                  { name: 'company', placeholder: t('Company Name', 'اسم الشركة'), type: 'text', required: true },
-                ].map(f => (
-                  <input
-                    key={f.name}
-                    {...f}
-                    value={form[f.name]}
-                    onChange={handleChange}
-                    className="w-full bg-black/40 border border-white/10 px-4 py-3 text-sm text-white placeholder-white/30 focus:outline-none focus:border-brand-red transition-colors duration-200"
-                  />
-                ))}
-                <div className="grid grid-cols-2 gap-4">
-                  <input
-                    type="tel" name="phone" placeholder={t('Phone', 'الهاتف')} required value={form.phone} onChange={handleChange}
-                    className="bg-black/40 border border-white/10 px-4 py-3 text-sm text-white placeholder-white/30 focus:outline-none focus:border-brand-red transition-colors"
-                  />
-                  <input
-                    type="email" name="email" placeholder={t('Email', 'البريد الإلكتروني')} required value={form.email} onChange={handleChange}
-                    className="bg-black/40 border border-white/10 px-4 py-3 text-sm text-white placeholder-white/30 focus:outline-none focus:border-brand-red transition-colors"
-                  />
-                </div>
-
-                {/* Chosen slot summary */}
-                <div className="text-xs px-4 py-3 border border-white/10 bg-black/40 text-brand-gray">
-                  {date && time ? (
-                    <span className="text-white">
-                      {date.toLocaleDateString('default', { weekday: 'short', month: 'long', day: 'numeric' })} · {time}
-                    </span>
-                  ) : (
-                    t('No slot selected — pick a date & time on the right →', 'لم يتم اختيار موعد — اختر التاريخ والوقت من الجهة الأخرى →')
-                  )}
-                </div>
-
-                {error && <p className="text-xs text-brand-red">{error}</p>}
-
-                <button type="submit" disabled={status === 'sending'} className="btn-primary mt-2 text-center disabled:opacity-60">
-                  {status === 'sending' ? t('Sending…', 'جارٍ الإرسال…') : t('Confirm Booking →', 'تأكيد الحجز →')}
-                </button>
-              </form>
-            )}
+            </div>
           </div>
 
-          {/* Date & time picker */}
-          <div className="reveal p-6 sm:p-8 border border-white/8 rounded-3xl" style={{ background: 'rgb(var(--surface-rgb))', transitionDelay: '0.1s' }}>
-            <h2 className="font-bebas text-3xl text-white mb-2">{t('SELECT DATE & TIME', 'اختر التاريخ والوقت')}</h2>
-            <p className="text-xs text-brand-gray mb-8 leading-relaxed">
-              {t('Schedule a 30-minute discovery call with our production team.', 'احجز مكالمة تعارف مدتها 30 دقيقة مع فريق الإنتاج لدينا.')}
-            </p>
-            <Calendar selected={date} time={time} onSelectDate={setDate} onSelectTime={setTime} />
+          {/* Right Column: Direct Contact Info (5 Cols) */}
+          <div className="lg:col-span-5 flex flex-col gap-6">
+            
+            {/* Quick Contact Info Card */}
+            <div className="p-6 sm:p-8 border border-white/8 rounded-3xl h-full flex flex-col justify-between" style={{ background: 'rgb(var(--surface-rgb))' }}>
+              <div>
+                <h2 className="font-bebas text-3xl sm:text-4xl text-white mb-2">{t('DIRECT CHANNELS', 'قنوات التواصل المباشرة')}</h2>
+                <p className="text-xs text-brand-gray mb-8 leading-relaxed">
+                  {t('Call us directly or send an email anytime for instant support and collaboration.', 'اتصل بنا مباشرة أو أرسل بريدًا إلكترونيًا في أي وقت للحصول على الدعم المباشر والتعاون.')}
+                </p>
+
+                <div className="flex flex-col gap-4">
+                  {/* Phone Call Card */}
+                  <div className="p-5 border border-white/10 rounded-2xl bg-black/40 flex items-center justify-between gap-3">
+                    <div className="flex items-center gap-3.5">
+                      <div className="w-10 h-10 rounded-xl bg-brand-red/10 border border-brand-red/30 flex items-center justify-center text-brand-red">
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                        </svg>
+                      </div>
+                      <div>
+                        <p className="text-[10px] text-brand-gray uppercase tracking-widest">{t('Phone / WhatsApp', 'الهاتف / واتساب')}</p>
+                        <a href="tel:+201203439058" className="text-sm font-semibold text-white hover:text-brand-red transition-colors">
+                          +20 120 343 9058
+                        </a>
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => handleCopy('+201203439058', 'phone')}
+                      className="px-3 py-1.5 rounded-lg border border-white/15 text-[11px] font-medium text-white/70 hover:text-white hover:border-brand-red transition-all"
+                    >
+                      {copiedPhone ? t('Copied!', 'تم النسخ!') : t('Copy', 'نسخ')}
+                    </button>
+                  </div>
+
+                  {/* Email Card */}
+                  <div className="p-5 border border-white/10 rounded-2xl bg-black/40 flex items-center justify-between gap-3">
+                    <div className="flex items-center gap-3.5 overflow-hidden">
+                      <div className="w-10 h-10 shrink-0 rounded-xl bg-brand-red/10 border border-brand-red/30 flex items-center justify-center text-brand-red">
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                        </svg>
+                      </div>
+                      <div className="truncate">
+                        <p className="text-[10px] text-brand-gray uppercase tracking-widest">{t('Official Email', 'البريد الرسمي')}</p>
+                        <a href="mailto:cashbackagency1@gmail.com" className="text-xs font-semibold text-white hover:text-brand-red transition-colors truncate block">
+                          cashbackagency1@gmail.com
+                        </a>
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => handleCopy('cashbackagency1@gmail.com', 'email')}
+                      className="px-3 py-1.5 shrink-0 rounded-lg border border-white/15 text-[11px] font-medium text-white/70 hover:text-white hover:border-brand-red transition-all"
+                    >
+                      {copiedEmail ? t('Copied!', 'تم النسخ!') : t('Copy', 'نسخ')}
+                    </button>
+                  </div>
+
+                  {/* Working Hours Card */}
+                  <div className="p-5 border border-white/10 rounded-2xl bg-black/40 flex items-center gap-3.5">
+                    <div className="w-10 h-10 shrink-0 rounded-xl bg-brand-red/10 border border-brand-red/30 flex items-center justify-center text-brand-red">
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10" strokeWidth="2"/>
+                        <polyline points="12 6 12 12 16 14" strokeWidth="2"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <p className="text-[10px] text-brand-gray uppercase tracking-widest">{t('Studio Working Hours', 'ساعات عمل الاستوديو')}</p>
+                      <p className="text-xs font-semibold text-white">
+                        {t('Sat – Thu: 10:00 AM – 8:00 PM', 'السبت – الخميس: 10:00 صباحًا – 8:00 مساءً')}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
       </section>

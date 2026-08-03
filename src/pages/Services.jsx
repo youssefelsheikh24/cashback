@@ -1,31 +1,8 @@
-import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { stats } from '../data/projects'
 import useReveal from '../hooks/useReveal'
 import { useLang } from '../i18n/LanguageContext'
-
-function Counter({ target, suffix }) {
-  const [count, setCount] = useState(0)
-  const ref = useRef(null)
-  const started = useRef(false)
-  useEffect(() => {
-    const obs = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting && !started.current) {
-        started.current = true
-        let n = 0
-        const step = target / (2000 / 16)
-        const t = setInterval(() => {
-          n = Math.min(n + step, target)
-          setCount(Math.floor(n))
-          if (n >= target) clearInterval(t)
-        }, 16)
-      }
-    }, { threshold: 0.5 })
-    if (ref.current) obs.observe(ref.current)
-    return () => obs.disconnect()
-  }, [target])
-  return <span ref={ref} className="font-bebas text-6xl sm:text-7xl text-brand-red block">{count}{suffix}</span>
-}
+import Counter from '../components/Counter'
 
 const departments = [
   {
@@ -131,7 +108,7 @@ export default function Services() {
         <div className="max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
           {stats.map(s => (
             <div key={s.label} className="border border-white/6 py-10 px-4 rounded-2xl" style={{ background: 'rgb(var(--surface-rgb))' }}>
-              <Counter target={s.value} suffix={s.suffix} />
+              <Counter target={s.value} suffix={s.suffix} className="font-bebas text-6xl sm:text-7xl text-brand-red block" />
               <p className="text-[10px] tracking-[0.25em] uppercase text-brand-gray mt-3">{t(s.label, s.labelAr)}</p>
             </div>
           ))}

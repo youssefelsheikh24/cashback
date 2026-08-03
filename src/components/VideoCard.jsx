@@ -20,7 +20,7 @@ export default function VideoCard({ video, large = false }) {
             alt={video.title}
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             loading="lazy"
-            onError={e => { e.target.src = `https://picsum.photos/seed/${video.id}/800/450` }}
+            onError={e => { e.target.onerror = null; e.target.src = `https://picsum.photos/seed/${video.id}/800/450` }}
           />
           {/* Dark overlay */}
           <div className="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors duration-300" />
