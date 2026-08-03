@@ -30,7 +30,7 @@ export const WhatsApp = ({ className }) => (
 )
 
 export const socials = [
-  { label: 'Instagram', href: 'https://www.instagram.com/cashhback.marketingagency/', Icon: Instagram },
+  { label: 'Instagram', href: 'https://www.instagram.com/cashback.marketingagency/', Icon: Instagram },
   { label: 'Facebook', href: 'https://www.facebook.com/profile.php?id=61587427587361', Icon: Facebook },
   { label: 'TikTok', href: 'https://www.tiktok.com/@cashback.9', Icon: TikTok },
   { label: 'WhatsApp', href: `https://wa.me/${WHATSAPP_NUMBER}`, Icon: WhatsApp },

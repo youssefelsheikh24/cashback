@@ -40,11 +40,11 @@ export default function Contact() {
     {
       id: 'instagram',
       name: 'Instagram',
-      handle: '@cashhback.marketingagency',
+      handle: '@cashback.marketingagency',
       badge: t('Reels & Portfolio', 'الأعمال والريمكسات'),
       desc: t('Follow our cinematic visual showcases and send us a direct message.', 'تابع معارضنا السينمائية وراسلنا مباشرة.'),
       cta: t('Visit Instagram', 'زيارة إنستغرام'),
-      href: 'https://www.instagram.com/cashhback.marketingagency/',
+      href: 'https://www.instagram.com/cashback.marketingagency/',
       accentColor: 'from-pink-500/20 to-purple-500/5',
       borderColor: 'group-hover:border-pink-500/50',
       badgeBg: 'bg-pink-500/10 text-pink-400 border-pink-500/20',
