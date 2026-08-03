@@ -79,12 +79,6 @@ export default function Home() {
             </Link>
           </div>
         </div>
-
-        {/* Scroll indicator */}
-        <div className="absolute bottom-5 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2">
-          <p className="text-[10px] tracking-[0.3em] uppercase text-white/60">{t('Scroll to Explore', 'مرّر للاستكشاف')}</p>
-          <div className="w-px h-10 bg-gradient-to-b from-brand-red to-transparent animate-pulse" />
-        </div>
       </section>
 
       {/* ─── CLIENT MARQUEE ─────────────────────────────────────── */}
