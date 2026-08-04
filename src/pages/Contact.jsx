@@ -183,6 +183,7 @@ export default function Contact() {
                     </div>
                     <button
                       onClick={() => handleCopy('+201203439058', 'phone')}
+                      aria-label={t('Copy phone number', 'نسخ رقم الهاتف')}
                       className="px-3 py-1.5 rounded-lg border border-white/15 text-[11px] font-medium text-white/70 hover:text-white hover:border-brand-red transition-all"
                     >
                       {copiedPhone ? t('Copied!', 'تم النسخ!') : t('Copy', 'نسخ')}
@@ -206,6 +207,7 @@ export default function Contact() {
                     </div>
                     <button
                       onClick={() => handleCopy('cashbackagency1@gmail.com', 'email')}
+                      aria-label={t('Copy email address', 'نسخ البريد الإلكتروني')}
                       className="px-3 py-1.5 shrink-0 rounded-lg border border-white/15 text-[11px] font-medium text-white/70 hover:text-white hover:border-brand-red transition-all"
                     >
                       {copiedEmail ? t('Copied!', 'تم النسخ!') : t('Copy', 'نسخ')}

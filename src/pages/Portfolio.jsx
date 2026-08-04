@@ -281,6 +281,7 @@ export default function Portfolio() {
                   <img
                     src={thumbUrl(v)}
                     alt={v.title}
+                    loading="lazy"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     onError={e => { e.target.onerror = null; e.target.src = `https://picsum.photos/seed/${v.id + 10}/320/180` }}
                   />

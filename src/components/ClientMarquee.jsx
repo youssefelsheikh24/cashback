@@ -17,7 +17,7 @@ export default function ClientMarquee() {
             className="shrink-0 flex items-center justify-center rounded-2xl h-20 px-6 overflow-hidden"
             style={{ backgroundColor: c.bg }}
           >
-            <img src={c.src} alt="" loading="lazy" className="max-h-14 w-auto object-contain" />
+            <img src={c.src} alt={`Client partner logo ${(i % clientLogos.length) + 1}`} loading="lazy" className="max-h-14 w-auto object-contain" />
           </div>
         ))}
       </div>

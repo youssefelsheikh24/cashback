@@ -86,7 +86,7 @@ export default function Blog() {
           {rest.map(p => (
             <div key={p.id} className="group cursor-pointer border border-white/8 overflow-hidden card-hover" style={{ background:'rgb(var(--surface-rgb))' }}>
               <div className="overflow-hidden aspect-video">
-                <img src={p.img} alt={p.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                <img src={p.img} alt={p.title} loading="lazy" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
               </div>
               <div className="p-5">
                 <div className="flex items-center gap-3 mb-3">

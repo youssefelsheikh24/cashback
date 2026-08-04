@@ -25,6 +25,7 @@ export default function VideoModal({ video, onClose }) {
         {/* Close */}
         <button
           onClick={onClose}
+          aria-label="Close modal"
           className="absolute -top-10 right-0 text-white/60 hover:text-white text-sm tracking-widest uppercase flex items-center gap-2 transition-colors"
         >
           Close <span className="text-brand-red text-lg leading-none">✕</span>
