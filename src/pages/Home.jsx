@@ -62,15 +62,12 @@ export default function Home() {
           <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse at center, transparent 40%, rgb(var(--bg-rgb) /0.7) 100%)' }} />
         </div>
 
-        {/* Hero Top Content (Headline & Subtitle) — Positioned at Top */}
+        {/* Hero Top Content (Headline) — Positioned at Top */}
         <div ref={heroRef} className="relative z-10 text-left rtl:text-right px-6 sm:px-10 lg:px-16 max-w-4xl w-full mr-auto ml-0">
-          <h1 className="font-bebas text-[clamp(2.5rem,7vw,5.8rem)] leading-[0.95] text-white text-shadow mb-4 sm:mb-6">
+          <h1 className="font-bebas text-[clamp(2.5rem,7vw,5.8rem)] leading-[0.95] text-white text-shadow">
             {t(<>WE DON'T CREATE<br />CONTENT.<br /><span className="text-brand-red">WE CREATE BRANDS</span><br />PEOPLE REMEMBER.</>,
                <>نحن لا نصنع<br />محتوى.<br /><span className="text-brand-red">نحن نصنع علامات</span><br />يتذكرها الناس.</>)}
           </h1>
-          <p className="text-brand-gray text-sm sm:text-lg max-w-xl">
-            {t('Creative Studio for Marketing, Branding, Video & Ads', 'استوديو إبداعي للتسويق والهوية البصرية والفيديو والإعلانات')}
-          </p>
         </div>
 
         {/* Hero Bottom Content (Action Buttons) — Positioned at Bottom */}
