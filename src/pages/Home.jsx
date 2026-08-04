@@ -43,7 +43,7 @@ export default function Home() {
     <div>
       {/* ─── HERO ─────────────────────────────────────────────── */}
       {/* Hero stays cinematic (dark overlay + white text) in both themes */}
-      <section className="relative min-h-screen flex items-end overflow-hidden pt-28 sm:pt-36 pb-12 sm:pb-24 lg:pb-32" style={{ ['--bg-rgb']: '13 13 13', ['--fg-rgb']: '255 255 255' }}>
+      <section className="relative min-h-screen flex flex-col justify-between overflow-hidden pt-28 sm:pt-36 pb-10 sm:pb-16" style={{ ['--bg-rgb']: '13 13 13', ['--fg-rgb']: '255 255 255' }}>
         {/* Background video */}
         <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 0 }}>
           <video
@@ -62,16 +62,20 @@ export default function Home() {
           <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse at center, transparent 40%, rgb(var(--bg-rgb) /0.7) 100%)' }} />
         </div>
 
-        {/* Hero content — Anchored to far left */}
+        {/* Hero Top Content (Headline & Subtitle) — Positioned at Top */}
         <div ref={heroRef} className="relative z-10 text-left rtl:text-right px-6 sm:px-10 lg:px-16 max-w-4xl w-full mr-auto ml-0">
-          <h1 className="font-bebas text-[clamp(2.8rem,7.5vw,5.8rem)] leading-[0.95] text-white text-shadow mb-6">
+          <h1 className="font-bebas text-[clamp(2.5rem,7vw,5.8rem)] leading-[0.95] text-white text-shadow mb-4 sm:mb-6">
             {t(<>WE DON'T CREATE<br />CONTENT.<br /><span className="text-brand-red">WE CREATE BRANDS</span><br />PEOPLE REMEMBER.</>,
                <>نحن لا نصنع<br />محتوى.<br /><span className="text-brand-red">نحن نصنع علامات</span><br />يتذكرها الناس.</>)}
           </h1>
-          <p className="text-brand-gray text-base sm:text-lg max-w-xl mb-10">
+          <p className="text-brand-gray text-sm sm:text-lg max-w-xl">
             {t('Creative Studio for Marketing, Branding, Video & Ads', 'استوديو إبداعي للتسويق والهوية البصرية والفيديو والإعلانات')}
           </p>
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-start gap-4">
+        </div>
+
+        {/* Hero Bottom Content (Action Buttons) — Positioned at Bottom */}
+        <div className="relative z-10 text-left rtl:text-right px-6 sm:px-10 lg:px-16 max-w-4xl w-full mr-auto ml-0 mt-8">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-start gap-3 sm:gap-4">
             <Link to="/portfolio" className="btn-primary text-center">
               {t('View Our Work', 'شاهد أعمالنا')}
             </Link>
