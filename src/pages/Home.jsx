@@ -43,7 +43,7 @@ export default function Home() {
     <div>
       {/* ─── HERO ─────────────────────────────────────────────── */}
       {/* Hero stays cinematic (dark overlay + white text) in both themes */}
-      <section className="relative min-h-screen flex items-center overflow-hidden pt-28 sm:pt-32 pb-16" style={{ ['--bg-rgb']: '13 13 13', ['--fg-rgb']: '255 255 255' }}>
+      <section className="relative min-h-screen flex items-end overflow-hidden pt-28 sm:pt-36 pb-12 sm:pb-24 lg:pb-32" style={{ ['--bg-rgb']: '13 13 13', ['--fg-rgb']: '255 255 255' }}>
         {/* Background video */}
         <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 0 }}>
           <video
