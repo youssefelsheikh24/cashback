@@ -170,6 +170,13 @@ body {
   .text-shadow {
     text-shadow: 0 2px 20px rgba(0,0,0,0.8);
   }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 }
 
 /* Site-wide rounded styling for form fields */

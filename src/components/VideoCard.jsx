@@ -1,10 +1,13 @@
 import { useState } from 'react'
 import VideoModal from './VideoModal'
-import { thumbUrl } from '../data/projects'
+import { thumbUrl, categoriesAr } from '../data/projects'
+import { useLang } from '../i18n/LanguageContext'
 
 export default function VideoCard({ video, large = false }) {
+  const { t } = useLang()
   const [open, setOpen] = useState(false)
   const thumb = thumbUrl(video)
+  const badgeText = video.category ? t(video.category, categoriesAr[video.category] || video.category) : video.tag
 
   return (
     <>
@@ -26,9 +29,9 @@ export default function VideoCard({ video, large = false }) {
           <div className="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors duration-300" />
 
           {/* Category badge */}
-          {video.tag && (
-            <span className="absolute top-3 left-3 text-[9px] font-semibold tracking-widest uppercase px-2 py-1 bg-brand-red text-white rounded-full">
-              {video.tag}
+          {badgeText && (
+            <span className="absolute top-3 left-3 text-[9px] font-semibold tracking-wider px-2.5 py-1 bg-brand-red text-white rounded-full backdrop-blur-md shadow-md">
+              {badgeText}
             </span>
           )}
 
