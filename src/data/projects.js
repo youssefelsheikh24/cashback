@@ -3,9 +3,7 @@
 
 export const videos = [
   // 🏢 Real Estate
-  { id: 102, title: 'Green Plaza', category: '🏢 Real Estate', tag: 'REAL ESTATE', driveId: '1eeKLFw7M82-Xm5kSYf81T6ISSUGnh3kZ' },
-  { id: 218, title: 'Green Plaza', category: '🏢 Real Estate', tag: 'REAL ESTATE', driveId: '1eAjGlT9ijDAnl58XGI1VRF25nXVlXjGg' },
-  { id: 107, title: 'Final Location', category: '🏢 Real Estate', tag: 'REAL ESTATE', driveId: '1zFbxEDqIbszhEKNXIIINuB0ZvtcxYE0I' },
+  { id: 102, title: 'MHD Reels 6', category: '🏢 Real Estate', tag: 'REAL ESTATE', src: 'https://media.cashback.marketing/videos/real-estate/mhd%20reels%206.mp4' },
 
   // 🩺 Medical Content
   { id: 210, title: 'B Visuals', category: '🩺 Medical Content', tag: 'MEDICAL', driveId: '1LCyke0Qo7WY6aEr4W3M0S03A51mL-MfM' },
@@ -76,7 +74,9 @@ export const thumbUrl = (v) =>
     ? v.poster
     : v.driveId
       ? `https://drive.google.com/thumbnail?id=${v.driveId}&sz=w1000`
-      : `https://img.youtube.com/vi/${v.youtubeId}/maxresdefault.jpg`
+      : v.youtubeId
+        ? `https://img.youtube.com/vi/${v.youtubeId}/maxresdefault.jpg`
+        : `https://picsum.photos/seed/${v.id}/800/450`
 
 export const embedUrl = (v, { mute = false, loop = false } = {}) => {
   if (v.driveId) {

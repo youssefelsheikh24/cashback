@@ -274,36 +274,10 @@ export default function Portfolio() {
             {videos.slice(0, 5).map(v => (
               <div
                 key={v.id}
-                className="flex-shrink-0 w-64 sm:w-72 group cursor-pointer relative overflow-hidden border border-white/6 rounded-2xl"
-                style={{ scrollSnapAlign: 'start', background: 'rgb(var(--surface2-rgb))' }}
+                className="flex-shrink-0 w-64 sm:w-72"
+                style={{ scrollSnapAlign: 'start' }}
               >
-                <div className="relative aspect-video overflow-hidden">
-                  <img
-                    src={thumbUrl(v)}
-                    alt={v.title}
-                    loading="lazy"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    onError={e => { e.target.onerror = null; e.target.src = `https://picsum.photos/seed/${v.id + 10}/320/180` }}
-                  />
-                  <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors" />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-10 h-10 rounded-full border border-white/60 flex items-center justify-center group-hover:border-brand-red group-hover:bg-brand-red/20 transition-all">
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="white" className="ml-0.5">
-                        <polygon points="5 3 19 12 5 21 5 3" />
-                      </svg>
-                    </div>
-                  </div>
-                  {v.duration && <span className="absolute top-2 right-2 text-[9px] font-mono text-white/70 bg-black/60 px-1.5 py-0.5" style={{ ['--fg-rgb']: '255 255 255' }}>{v.duration}</span>}
-                </div>
-                <div className="p-3">
-                  {v.tag && <p className="text-[9px] text-brand-red uppercase tracking-widest mb-1">{v.tag}</p>}
-                  {v.views && (
-                    <div className="flex items-center gap-2 mt-1.5">
-                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#A0A0A0" strokeWidth="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-                      <span className="text-[10px] text-brand-gray">{v.views}</span>
-                    </div>
-                  )}
-                </div>
+                <VideoCard video={v} />
               </div>
             ))}
           </div>

@@ -1,54 +1,94 @@
 import { useState } from 'react'
+import 'vidstack/styles/defaults.css'
+import 'vidstack/styles/community-skin/video.css'
+import { MediaPlayer, MediaOutlet, MediaCommunitySkin } from '@vidstack/react'
 import { embedUrl, thumbUrl } from '../data/projects'
 
-// Shared video frame used by the modal and the Home featured reel.
-// - Shows a loading state (thumbnail + spinner) until the player is ready,
-//   because Drive-hosted videos can take a moment to open.
-// - Starts MUTED so it never blasts audio; the viewer unmutes with the
-//   player's own controls (native <video> controls, or the Drive player).
-export default function VideoPlayer({ video, loop = true, rounded = true }) {
+export default function VideoPlayer({
+  src,
+  video,
+  title,
+  poster,
+  autoPlay = false,
+  muted = false,
+  loop = true,
+  playsInline = true,
+  controls = true,
+  className = '',
+  rounded = true,
+}) {
   const [loading, setLoading] = useState(true)
-  const thumb = thumbUrl(video)
 
-  return (
-    <div className="video-ratio" style={rounded ? undefined : { borderRadius: 0 }}>
-      {loading && (
-        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-3 bg-black">
-          {thumb && (
-            <img
-              src={thumb}
-              alt=""
-              className="absolute inset-0 w-full h-full object-cover opacity-25"
-              onError={e => { e.currentTarget.style.display = 'none' }}
-            />
-          )}
-          <div className="relative w-10 h-10 rounded-full border-2 border-white/20 border-t-brand-red animate-spin" />
-          <p className="relative text-[10px] uppercase tracking-[0.3em] text-white/70">
-            Loading video…
-          </p>
-        </div>
-      )}
+  const resolvedSrc = src || video?.src
+  const resolvedTitle = title || video?.title || 'Video'
+  const resolvedPoster = poster || video?.poster || (video ? thumbUrl(video) : undefined)
 
-      {video.src ? (
-        <video
-          src={video.src}
-          poster={video.poster}
-          autoPlay
-          muted
-          loop={loop}
-          playsInline
-          controls
-          onLoadedData={() => setLoading(false)}
-        />
-      ) : (
+  // Drive fallback for videos with embed URLs instead of direct MP4 sources
+  if (!resolvedSrc && video) {
+    return (
+      <div className={`video-ratio overflow-hidden ${className}`} style={rounded ? undefined : { borderRadius: 0 }}>
+        {loading && (
+          <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-3 bg-black">
+            {resolvedPoster && (
+              <img
+                src={resolvedPoster}
+                alt=""
+                className="absolute inset-0 w-full h-full object-cover opacity-25"
+                onError={e => { e.currentTarget.style.display = 'none' }}
+              />
+            )}
+            <div className="relative w-10 h-10 rounded-full border-2 border-white/20 border-t-brand-red animate-spin" />
+            <p className="relative text-[10px] uppercase tracking-[0.3em] text-white/70">
+              Loading video…
+            </p>
+          </div>
+        )}
         <iframe
-          src={embedUrl(video, { mute: true, loop })}
-          title={video.title || 'Video'}
+          src={embedUrl(video, { mute: muted, loop })}
+          title={resolvedTitle}
           allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
           allowFullScreen
           onLoad={() => setLoading(false)}
         />
-      )}
+      </div>
+    )
+  }
+
+  // Background / Ambient player without controls overlay
+  if (!controls) {
+    return (
+      <MediaPlayer
+        src={resolvedSrc}
+        title={resolvedTitle}
+        autoplay={autoPlay}
+        muted={muted}
+        loop={loop}
+        playsInline={playsInline}
+        load="visible"
+        className={`absolute inset-0 w-full h-full object-cover overflow-hidden ${className}`}
+      >
+        <MediaOutlet />
+      </MediaPlayer>
+    )
+  }
+
+  // Vidstack Player with Default Community Skin & Controls
+  return (
+    <div className={`video-ratio overflow-hidden ${className}`} style={rounded ? undefined : { borderRadius: 0 }}>
+      <MediaPlayer
+        src={resolvedSrc}
+        title={resolvedTitle}
+        poster={resolvedPoster}
+        autoplay={autoPlay}
+        muted={muted}
+        loop={loop}
+        playsInline={playsInline}
+        load="visible"
+        className="absolute inset-0 w-full h-full overflow-hidden"
+      >
+        <MediaOutlet />
+        <MediaCommunitySkin />
+      </MediaPlayer>
     </div>
   )
 }

@@ -118,11 +118,13 @@ body {
   border-radius: 1.25rem;
 }
 .video-ratio iframe,
-.video-ratio video {
+.video-ratio video,
+.video-ratio media-player {
   position: absolute;
   top: 0; left: 0;
   width: 100%; height: 100%;
   border: none;
+  overflow: hidden;
 }
 
 /* Button styles */

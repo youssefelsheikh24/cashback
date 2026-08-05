@@ -46,14 +46,14 @@ export default function Home() {
       <section className="relative min-h-screen flex flex-col justify-between overflow-hidden pt-28 sm:pt-36 pb-10 sm:pb-16" style={{ ['--bg-rgb']: '13 13 13', ['--fg-rgb']: '255 255 255' }}>
         {/* Background video */}
         <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 0 }}>
-          <video
-            className="absolute inset-0 w-full h-full object-cover"
+          <VideoPlayer
             src="/hero-cashback.mp4"
             autoPlay
             muted
             loop
             playsInline
-            preload="auto"
+            controls={false}
+            className="absolute inset-0 w-full h-full object-cover"
           />
           {/* Dark gradient overlay — heavier on the left side to boost contrast for left-aligned text */}
           <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, rgb(var(--bg-rgb) /0.85) 0%, rgb(var(--bg-rgb) /0.5) 60%, rgb(var(--bg-rgb) /0.3) 100%)' }} />
