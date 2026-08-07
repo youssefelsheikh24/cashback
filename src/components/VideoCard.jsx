@@ -39,12 +39,7 @@ export default function VideoCard({ video, large = false }) {
           {/* Subtle dark overlay */}
           <div className="absolute inset-0 bg-black/30 md:bg-black/20 md:group-hover:bg-black/50 transition-colors duration-300" />
 
-          {/* Category badge */}
-          {badgeText && (
-            <span className="absolute top-3 left-3 text-[9px] font-semibold tracking-wider px-2.5 py-1 bg-brand-red text-white rounded-full backdrop-blur-md shadow-md">
-              {badgeText}
-            </span>
-          )}
+
 
           {/* Duration */}
           {video.duration && (

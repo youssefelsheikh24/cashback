@@ -64,11 +64,6 @@ export default function VideoModal({ video, onClose }) {
         {/* Modal Header bar */}
         <div className="flex items-center justify-between px-5 py-4 border-b border-white/10 bg-black/40 backdrop-blur-md">
           <div className="flex items-center gap-3 pr-8 rtl:pr-0 rtl:pl-8">
-            {categoryLabel && (
-              <span className="text-[10px] font-bold tracking-widest uppercase px-2.5 py-1 bg-brand-red text-white rounded-full">
-                {categoryLabel}
-              </span>
-            )}
             <h3 className="text-sm sm:text-base font-bold text-white tracking-wide truncate max-w-xs sm:max-w-md">
               {video?.title || t('Project Video', 'فيديو المشروع')}
             </h3>

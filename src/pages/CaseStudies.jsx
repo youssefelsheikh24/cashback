@@ -50,10 +50,7 @@ export default function CaseStudies() {
               <div className="relative overflow-hidden aspect-video">
                 <img src={c.img} alt={c.title} loading="lazy" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                 <div className="absolute inset-0 bg-black/30" />
-                <div className="absolute top-3 left-3 flex gap-2">
-                  <span className="text-[9px] font-semibold tracking-widest uppercase px-2 py-1 bg-brand-red text-white">{c.tag}</span>
-                  {c.subtag && <span className="text-[9px] font-semibold tracking-widest uppercase px-2 py-1 border border-white/30 text-white">{c.subtag}</span>}
-                </div>
+
               </div>
               <div className="p-6">
                 <h2 className="font-bebas text-2xl text-white mb-2">{c.title}</h2>

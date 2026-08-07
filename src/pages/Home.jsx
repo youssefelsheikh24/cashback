@@ -147,11 +147,6 @@ export default function Home() {
               <VideoPlayer key={mainVideo.id} video={mainVideo} rounded={false} />
               <div className="p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
-                  {mainVideo.tag && (
-                    <span className="text-[9px] font-semibold tracking-widest uppercase px-2 py-1 bg-brand-red text-white rounded-full">
-                      {mainVideo.tag}
-                    </span>
-                  )}
                   {mainVideo.description && <p className="text-xs text-brand-gray mt-1 max-w-xl">{mainVideo.description}</p>}
                 </div>
                 {(mainVideo.views || mainVideo.duration || mainVideo.year) && (
