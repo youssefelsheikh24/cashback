@@ -54,6 +54,27 @@ export default function VideoPlayer({
     )
   }
 
+  const handlePlay = (e) => {
+    if (!muted) {
+      const currentMediaElement = e?.target
+      document.querySelectorAll('video').forEach(v => {
+        if (v !== currentMediaElement && !v.muted && !v.paused) {
+          v.pause()
+        }
+      })
+      document.querySelectorAll('iframe').forEach(iframe => {
+        try {
+          const iframeSrc = iframe.src
+          if (iframeSrc && (iframeSrc.includes('drive.google.com') || iframeSrc.includes('youtube.com'))) {
+            if (!iframe.contains(currentMediaElement)) {
+              iframe.src = iframeSrc
+            }
+          }
+        } catch (err) {}
+      })
+    }
+  }
+
   // Background / Ambient player without controls overlay
   if (!controls) {
     return (
@@ -64,6 +85,7 @@ export default function VideoPlayer({
         muted={muted}
         loop={loop}
         playsInline={playsInline}
+        onPlay={handlePlay}
         load="visible"
         className={`absolute inset-0 w-full h-full object-cover overflow-hidden ${className}`}
       >
@@ -83,6 +105,7 @@ export default function VideoPlayer({
         muted={muted}
         loop={loop}
         playsInline={playsInline}
+        onPlay={handlePlay}
         load="visible"
         className="absolute inset-0 w-full h-full overflow-hidden"
       >

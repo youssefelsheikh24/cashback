@@ -4,6 +4,12 @@
 export const videos = [
   // 🏢 Real Estate
   { id: 102, title: 'MHD Reels 6', category: '🏢 Real Estate', tag: 'REAL ESTATE', src: 'https://media.cashback.marketing/videos/real-estate/mhd%20reels%206.mp4' },
+  { id: 107, title: 'Green Plaza', category: '🏢 Real Estate', tag: 'REAL ESTATE', src: 'https://media.cashback.marketing/videos/real-estate/green%20plaza.mp4' },
+  { id: 108, title: 'MHD', category: '🏢 Real Estate', tag: 'REAL ESTATE', src: 'https://media.cashback.marketing/videos/real-estate/Mhd.mp4' },
+  { id: 109, title: 'I Investment', category: '🏢 Real Estate', tag: 'REAL ESTATE', src: 'https://media.cashback.marketing/videos/real-estate/I%20investment.mp4' },
+  { id: 110, title: 'I Investment 2', category: '🏢 Real Estate', tag: 'REAL ESTATE', src: 'https://media.cashback.marketing/videos/real-estate/i%20nvestment%202.mp4' },
+  { id: 111, title: 'I Investment 3', category: '🏢 Real Estate', tag: 'REAL ESTATE', src: 'https://media.cashback.marketing/videos/real-estate/i%20investment%203.mp4' },
+  { id: 112, title: 'Capital Care', category: '🏢 Real Estate', tag: 'REAL ESTATE', src: 'https://media.cashback.marketing/videos/real-estate/capital%20care.mp4' },
 
   // 🩺 Medical Content
   { id: 210, title: 'B Visuals', category: '🩺 Medical Content', tag: 'MEDICAL', driveId: '1LCyke0Qo7WY6aEr4W3M0S03A51mL-MfM' },
@@ -18,8 +24,8 @@ export const videos = [
   { id: 212, title: 'Vodafone Final 2', category: '🎉 Grand Openings', tag: 'OPENINGS', driveId: '1NyILoVhq0KCF_xMcz3uHr9UU7P5frkQU' },
 
   // 🚗 Automotive
-  { id: 202, title: 'GTR 1', category: '🚗 Automotive', tag: 'AUTOMOTIVE', driveId: '15t6xqdSensAiUZDPr0HUhxinxBu5icg5' },
-  { id: 226, title: 'R2 S', category: '🚗 Automotive', tag: 'AUTOMOTIVE', driveId: '1uer0silSvb0h88w4YuFc3pe-chVKlF0l' },
+  { id: 601, category: '🚗 Automotive', src: 'https://media.cashback.marketing/videos/automative/19_1.mp4' },
+  { id: 602, category: '🚗 Automotive', src: 'https://media.cashback.marketing/videos/automative/c-4_1.mp4' },
 
   // 🛋️ Furniture
   { id: 217, title: 'AG Group', category: '🛋️ Furniture', tag: 'FURNITURE', driveId: '1bZ-GZi_POrGhNzZWFbsNTGZlT_LdHMMq' },
@@ -30,12 +36,38 @@ export const videos = [
   { id: 206, title: '14', category: '👷 Engineering', tag: 'ENGINEERING', driveId: '1C7xkmbxutWkFOpLYvtyrF3t-FDq37Qj2' },
 
   // 🎭 Events
-  { id: 207, title: 'Stereo', category: '🎭 Events', tag: 'EVENTS', driveId: '1D1tC9uBkd75z7WB6SdAq5nz4Wx3LJO-m' },
-  { id: 211, title: 'Stereo 1', category: '🎭 Events', tag: 'EVENTS', driveId: '1MYBQDiajiQAFuyBf2Ib2axTQllCtONgQ' },
+  { id: 501, category: '🎭 Events', src: 'https://media.cashback.marketing/videos/events/Event%20(2)_1.mp4' },
+  { id: 503, category: '🎭 Events', src: 'https://media.cashback.marketing/videos/events/costa-1_1.mp4' },
+  { id: 504, category: '🎭 Events', src: 'https://media.cashback.marketing/videos/events/elb11_1.mp4' },
+  { id: 505, category: '🎭 Events', src: 'https://media.cashback.marketing/videos/events/ev-2_1.mp4' },
+  { id: 506, category: '🎭 Events', src: 'https://media.cashback.marketing/videos/events/ev_1.mp4' },
+  { id: 507, category: '🎭 Events', src: 'https://media.cashback.marketing/videos/events/event%20(1)_1.mp4' },
+  { id: 508, category: '🎭 Events', src: 'https://media.cashback.marketing/videos/events/event%201_1.mp4' },
+  { id: 509, category: '🎭 Events', src: 'https://media.cashback.marketing/videos/events/finsh_1.mp4' },
+  { id: 510, category: '🎭 Events', src: 'https://media.cashback.marketing/videos/events/gouzem1_1.mp4' },
+  { id: 512, category: '🎭 Events', src: 'https://media.cashback.marketing/videos/events/nb_1.mp4' },
+  { id: 513, category: '🎭 Events', src: 'https://media.cashback.marketing/videos/events/sa7ra2_1.mp4' },
+  { id: 515, category: '🎭 Events', src: 'https://media.cashback.marketing/videos/events/we_1_1.mp4' },
+  { id: 516, category: '🎭 Events', src: 'https://media.cashback.marketing/videos/events/zwzawyy_1.mp4' },
 
   // 🍽️ Restaurants
-  { id: 228, title: 'كرينكل', category: '🍽️ Restaurants', tag: 'RESTAURANTS', driveId: '1vDsdVHZZHxo11swm5nlVFuj2XvfrJADg' },
-  { id: 213, title: 'Stereo', category: '🍽️ Restaurants', tag: 'RESTAURANTS', driveId: '1PPoIjPPfl2lUDtgcm0oHnjAaZ2IEoTak' },
+  { id: 701, category: '🍽️ Restaurants', src: 'https://media.cashback.marketing/videos/restaurant/treee.mp4' },
+  { id: 702, category: '🍽️ Restaurants', src: 'https://media.cashback.marketing/videos/restaurant/14.mp4' },
+  { id: 703, category: '🍽️ Restaurants', src: 'https://media.cashback.marketing/videos/restaurant/15.mp4' },
+  { id: 704, category: '🍽️ Restaurants', src: 'https://media.cashback.marketing/videos/restaurant/16.mp4' },
+  { id: 705, category: '🍽️ Restaurants', src: 'https://media.cashback.marketing/videos/restaurant/2.mp4' },
+  { id: 706, category: '🍽️ Restaurants', src: 'https://media.cashback.marketing/videos/restaurant/SARAYI.mp4' },
+  { id: 707, category: '🍽️ Restaurants', src: 'https://media.cashback.marketing/videos/restaurant/ZEOR\'S.mp4' },
+  { id: 708, category: '🍽️ Restaurants', src: 'https://media.cashback.marketing/videos/restaurant/ZERO\'S%202.mp4' },
+  { id: 709, category: '🍽️ Restaurants', src: 'https://media.cashback.marketing/videos/restaurant/d-1%20Edit.mp4' },
+  { id: 710, category: '🍽️ Restaurants', src: 'https://media.cashback.marketing/videos/restaurant/d-2.mp4' },
+  { id: 711, category: '🍽️ Restaurants', src: 'https://media.cashback.marketing/videos/restaurant/finsh.mp4' },
+  { id: 712, category: '🍽️ Restaurants', src: 'https://media.cashback.marketing/videos/restaurant/laundry-room.mp4' },
+  { id: 713, category: '🍽️ Restaurants', src: 'https://media.cashback.marketing/videos/restaurant/r-1.mp4' },
+  { id: 714, category: '🍽️ Restaurants', src: 'https://media.cashback.marketing/videos/restaurant/r-44.mp4' },
+  { id: 715, category: '🍽️ Restaurants', src: 'https://media.cashback.marketing/videos/restaurant/r5-f.mp4' },
+  { id: 716, category: '🍽️ Restaurants', src: 'https://media.cashback.marketing/videos/restaurant/z1.mp4' },
+  { id: 717, category: '🍽️ Restaurants', src: 'https://media.cashback.marketing/videos/restaurant/%D9%83%D8%B1%D9%8A%D9%86%D9%83%D9%84_1.mp4' },
 
   // 🏋️ Fitness & Gyms
   { id: 222, title: 'Balance 4', category: '🏋️ Fitness & Gyms', tag: 'FITNESS', driveId: '1pFhSdKabMHkQ02qKhSU7bWWr-z0B9UiJ' },
@@ -50,8 +82,10 @@ export const videos = [
   { id: 203, title: 'AG', category: '👗 Fashion', tag: 'FASHION', driveId: '17ToU43l1GI6hIhL0ZomafrIowudOKBiL' },
 
   // 💍 Jewelry
-  { id: 105, title: 'MHD', category: '💍 Jewelry', tag: 'JEWELRY', driveId: '1GCs0bxOaSZ6E5PPpxrW-zqobAgSvYdQ_' },
-  { id: 204, title: 'MHD Edit', category: '💍 Jewelry', tag: 'JEWELRY', driveId: '1A_avg-vWSRAPgJWaQMQ9iLDXVjimrlZ7' },
+  { id: 801, title: 'Aura Silvers 1', category: '💍 Jewelry', tag: 'JEWELRY', src: 'https://media.cashback.marketing/videos/jelwery/AURA%20SILVERS%20(1).mp4' },
+  { id: 802, title: 'Aura Silvers 2', category: '💍 Jewelry', tag: 'JEWELRY', src: 'https://media.cashback.marketing/videos/jelwery/AURA%20SILVERS%20(2).mp4' },
+  { id: 803, title: 'Aura Silvers 3', category: '💍 Jewelry', tag: 'JEWELRY', src: 'https://media.cashback.marketing/videos/jelwery/AURA%20SILVERS%20(3).mp4' },
+  { id: 804, title: 'Aura Silvers 4', category: '💍 Jewelry', tag: 'JEWELRY', src: 'https://media.cashback.marketing/videos/jelwery/AURA%20SILVERS%20(4).mp4' },
 
   // 🏨 Hotels & Hospitality
   { id: 227, title: 'Stereo', category: '🏨 Hotels & Hospitality', tag: 'HOTELS', driveId: '1uwoZZnq3J1mRPE5kFt1O3Q6JoNI5_7Em' },

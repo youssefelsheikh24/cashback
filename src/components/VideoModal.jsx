@@ -10,7 +10,23 @@ export default function VideoModal({ video, onClose }) {
   useEffect(() => {
     // Trigger scale/fade-in transition on mount
     const timer = requestAnimationFrame(() => setAnimate(true))
-    document.body.style.overflow = 'hidden'
+
+    // Stop any previously playing unmuted videos or iframe embeds on the page
+    document.querySelectorAll('video').forEach(v => {
+      if (!v.paused && !v.muted) {
+        v.pause()
+      }
+    })
+    document.querySelectorAll('iframe').forEach(iframe => {
+      try {
+        const src = iframe.src
+        if (src && (src.includes('drive.google.com') || src.includes('youtube.com'))) {
+          iframe.src = src
+        }
+      } catch (err) {
+        // ignore cross-origin error if any
+      }
+    })
 
     const onKey = e => {
       if (e.key === 'Escape') {
@@ -21,7 +37,6 @@ export default function VideoModal({ video, onClose }) {
 
     return () => {
       cancelAnimationFrame(timer)
-      document.body.style.overflow = ''
       window.removeEventListener('keydown', onKey)
     }
   }, [])

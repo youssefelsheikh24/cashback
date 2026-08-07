@@ -8,7 +8,7 @@ export default function VideoCard({ video, large = false }) {
   const { t } = useLang()
   const [open, setOpen] = useState(false)
   const { thumb, handleImageError } = useVideoThumbnail(video)
-  const badgeText = video.category ? t(video.category, categoriesAr[video.category] || video.category) : video.tag
+  const badgeText = video.tag ? (categoriesAr[video.tag] ? t(video.tag, categoriesAr[video.tag]) : video.tag) : null
 
   return (
     <>
@@ -17,15 +17,25 @@ export default function VideoCard({ video, large = false }) {
         style={{ background: 'rgb(var(--surface2-rgb))' }}
         onClick={() => setOpen(true)}
       >
-        {/* Thumbnail */}
+        {/* Thumbnail / Video Preview */}
         <div className={`relative overflow-hidden aspect-video`}>
-          <img
-            src={thumb}
-            alt={video.title}
-            className="w-full h-full object-cover transition-transform duration-700 ease-out md:group-hover:scale-105"
-            loading="lazy"
-            onError={handleImageError}
-          />
+          {video.src ? (
+            <video
+              src={`${video.src}#t=1`}
+              preload="metadata"
+              playsInline
+              muted
+              className="w-full h-full object-cover transition-transform duration-700 ease-out md:group-hover:scale-105 pointer-events-none"
+            />
+          ) : (
+            <img
+              src={thumb}
+              alt={video.title}
+              className="w-full h-full object-cover transition-transform duration-700 ease-out md:group-hover:scale-105"
+              loading="lazy"
+              onError={handleImageError}
+            />
+          )}
           {/* Subtle dark overlay */}
           <div className="absolute inset-0 bg-black/30 md:bg-black/20 md:group-hover:bg-black/50 transition-colors duration-300" />
 

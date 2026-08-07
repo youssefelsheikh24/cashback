@@ -31,9 +31,9 @@ export default function Portfolio() {
     if (!container) return
 
     const handleWheel = (e) => {
-      if (e.deltaY !== 0) {
+      if (e.shiftKey || Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
         e.preventDefault()
-        container.scrollLeft += e.deltaY * 1.5
+        container.scrollLeft += (e.deltaX || e.deltaY) * 1.5
       }
     }
 
@@ -76,6 +76,7 @@ export default function Portfolio() {
   const featuredAllCategories = [
     '🏢 Real Estate',
     '🎉 Grand Openings',
+    '🎭 Events',
     '🚗 Automotive',
     '🍽️ Restaurants',
     '🩺 Medical Content'
