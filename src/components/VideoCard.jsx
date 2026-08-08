@@ -1,14 +1,21 @@
 import { useState } from 'react'
 import VideoModal from './VideoModal'
-import { categoriesAr } from '../data/projects'
+import { categoriesAr, thumbUrl } from '../data/projects'
 import { useLang } from '../i18n/LanguageContext'
-import { useVideoThumbnail } from '../hooks/useVideoThumbnail'
 
 export default function VideoCard({ video, large = false }) {
   const { t } = useLang()
   const [open, setOpen] = useState(false)
-  const { thumb, handleImageError } = useVideoThumbnail(video)
-  const badgeText = video.tag ? (categoriesAr[video.tag] ? t(video.tag, categoriesAr[video.tag]) : video.tag) : null
+  const posterUrl = video?.poster || thumbUrl(video)
+
+  const handleImageError = (e) => {
+    if (e.currentTarget.src && e.currentTarget.src.includes('media.cashback.marketing/thumbnails/')) {
+      const localPath = e.currentTarget.src.split('media.cashback.marketing')[1]
+      if (e.currentTarget.src !== window.location.origin + localPath) {
+        e.currentTarget.src = localPath
+      }
+    }
+  }
 
   return (
     <>
@@ -17,25 +24,20 @@ export default function VideoCard({ video, large = false }) {
         style={{ background: 'rgb(var(--surface2-rgb))' }}
         onClick={() => setOpen(true)}
       >
-        {/* Thumbnail / Video Preview */}
-        <div className={`relative overflow-hidden aspect-video`}>
-          {video.src ? (
-            <video
-              src={`${video.src}#t=1`}
-              preload="metadata"
-              playsInline
-              muted
-              className="w-full h-full object-cover transition-transform duration-700 ease-out md:group-hover:scale-105 pointer-events-none"
-            />
-          ) : (
+        {/* Thumbnail / Image Preview */}
+        <div className="relative overflow-hidden aspect-video bg-gradient-to-br from-neutral-900 via-neutral-800 to-black flex items-center justify-center">
+          {posterUrl ? (
             <img
-              src={thumb}
-              alt={video.title}
+              src={posterUrl}
+              alt={video.title || 'Video project'}
               className="w-full h-full object-cover transition-transform duration-700 ease-out md:group-hover:scale-105"
               loading="lazy"
               onError={handleImageError}
             />
+          ) : (
+            <div className="w-full h-full bg-gradient-to-br from-neutral-900 via-neutral-800 to-black" />
           )}
+
           {/* Subtle dark overlay */}
           <div className="absolute inset-0 bg-black/30 md:bg-black/20 md:group-hover:bg-black/50 transition-colors duration-300" />
 
@@ -60,9 +62,8 @@ export default function VideoCard({ video, large = false }) {
         </div>
 
         {/* Info */}
-        {(video.title || video.description || video.client || video.views || video.year) && (
+        {(video.description || video.client || video.views || video.year) && (
           <div className="p-4">
-            {video.title && <h3 className="text-sm font-semibold text-white mb-1 group-hover:text-brand-red transition-colors line-clamp-1">{video.title}</h3>}
             {video.description && <p className="text-[11px] text-brand-gray mb-3 line-clamp-2">{video.description}</p>}
             {(video.client || video.views || video.year) && (
               <div className="flex items-center justify-between pt-1 border-t border-white/5">

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import 'vidstack/styles/defaults.css'
 import 'vidstack/styles/community-skin/video.css'
 import { MediaPlayer, MediaOutlet, MediaCommunitySkin } from '@vidstack/react'
@@ -22,6 +22,18 @@ export default function VideoPlayer({
   const resolvedSrc = src || video?.src
   const resolvedTitle = title || video?.title || 'Video'
   const resolvedPoster = poster || video?.poster || (video ? thumbUrl(video) : undefined)
+
+  const logDevEvent = (name, detail) => {
+    if (import.meta.env.DEV) {
+      console.log(`[VideoPlayer ${name}]`, resolvedSrc, detail || '')
+    }
+  }
+
+  useEffect(() => {
+    if (import.meta.env.DEV && resolvedSrc) {
+      console.log(`[VideoPlayer Init] ${resolvedSrc}`)
+    }
+  }, [resolvedSrc])
 
   // Drive fallback for videos with embed URLs instead of direct MP4 sources
   if (!resolvedSrc && video) {
@@ -56,19 +68,21 @@ export default function VideoPlayer({
 
   const handlePlay = (e) => {
     if (!muted) {
-      const currentMediaElement = e?.target
+      const container = e?.target?.closest ? (e.target.closest('media-player') || e.target) : e?.target
       document.querySelectorAll('video').forEach(v => {
-        if (v !== currentMediaElement && !v.muted && !v.paused) {
+        if (container && container.contains && container.contains(v)) {
+          return // Do not pause videos inside the currently playing media player!
+        }
+        if (!v.muted && !v.paused) {
           v.pause()
         }
       })
       document.querySelectorAll('iframe').forEach(iframe => {
         try {
+          if (container && container.contains && container.contains(iframe)) return
           const iframeSrc = iframe.src
           if (iframeSrc && (iframeSrc.includes('drive.google.com') || iframeSrc.includes('youtube.com'))) {
-            if (!iframe.contains(currentMediaElement)) {
-              iframe.src = iframeSrc
-            }
+            iframe.src = iframeSrc
           }
         } catch (err) {}
       })
@@ -78,19 +92,22 @@ export default function VideoPlayer({
   // Background / Ambient player without controls overlay
   if (!controls) {
     return (
-      <MediaPlayer
+      <video
         src={resolvedSrc}
-        title={resolvedTitle}
-        autoplay={autoPlay}
+        autoPlay={autoPlay}
         muted={muted}
         loop={loop}
         playsInline={playsInline}
-        onPlay={handlePlay}
-        load="visible"
-        className={`absolute inset-0 w-full h-full object-cover overflow-hidden ${className}`}
-      >
-        <MediaOutlet />
-      </MediaPlayer>
+        onPlay={(e) => { handlePlay(e); logDevEvent('playing') }}
+        onLoadStart={() => logDevEvent('loadstart')}
+        onLoadedMetadata={() => logDevEvent('loadedmetadata')}
+        onCanPlay={() => logDevEvent('canplay')}
+        onCanPlayThrough={() => logDevEvent('canplaythrough')}
+        onWaiting={() => logDevEvent('waiting')}
+        onStalled={() => logDevEvent('stalled')}
+        onError={(e) => logDevEvent('error', e)}
+        className={`absolute inset-0 w-full h-full object-cover overflow-hidden pointer-events-none ${className}`}
+      />
     )
   }
 
@@ -100,13 +117,19 @@ export default function VideoPlayer({
       <MediaPlayer
         src={resolvedSrc}
         title={resolvedTitle}
-        poster={resolvedPoster}
+        poster={resolvedPoster || undefined}
         autoplay={autoPlay}
+        autoPlay={autoPlay}
         muted={muted}
         loop={loop}
         playsInline={playsInline}
-        onPlay={handlePlay}
-        load="visible"
+        onPlay={(e) => { handlePlay(e); logDevEvent('playing') }}
+        onCanPlay={(e) => logDevEvent('canplay', e)}
+        onCanPlayThrough={(e) => logDevEvent('canplaythrough', e)}
+        onWaiting={(e) => logDevEvent('waiting', e)}
+        onStalled={(e) => logDevEvent('stalled', e)}
+        onError={(e) => logDevEvent('error', e)}
+        load="eager"
         className="absolute inset-0 w-full h-full overflow-hidden"
       >
         <MediaOutlet />

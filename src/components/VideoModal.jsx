@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import VideoPlayer from './VideoPlayer'
 import { useLang } from '../i18n/LanguageContext'
 import { categoriesAr } from '../data/projects'
@@ -6,18 +6,21 @@ import { categoriesAr } from '../data/projects'
 export default function VideoModal({ video, onClose }) {
   const { t } = useLang()
   const [animate, setAnimate] = useState(false)
+  const modalRef = useRef(null)
 
   useEffect(() => {
     // Trigger scale/fade-in transition on mount
     const timer = requestAnimationFrame(() => setAnimate(true))
 
-    // Stop any previously playing unmuted videos or iframe embeds on the page
+    // Stop any previously playing unmuted videos or iframe embeds outside this modal
     document.querySelectorAll('video').forEach(v => {
+      if (modalRef.current && modalRef.current.contains(v)) return
       if (!v.paused && !v.muted) {
         v.pause()
       }
     })
     document.querySelectorAll('iframe').forEach(iframe => {
+      if (modalRef.current && modalRef.current.contains(iframe)) return
       try {
         const src = iframe.src
         if (src && (src.includes('drive.google.com') || src.includes('youtube.com'))) {
@@ -50,6 +53,7 @@ export default function VideoModal({ video, onClose }) {
 
   return (
     <div
+      ref={modalRef}
       className={`fixed inset-0 z-[200] flex items-center justify-center p-3 sm:p-6 transition-all duration-300 ${
         animate ? 'bg-black/85 backdrop-blur-xl opacity-100' : 'bg-black/0 backdrop-blur-none opacity-0'
       }`}

@@ -74,12 +74,13 @@ export default function Portfolio() {
   }
 
   const featuredAllCategories = [
-    '🏢 Real Estate',
-    '🎉 Grand Openings',
-    '🎭 Events',
-    '🚗 Automotive',
-    '🍽️ Restaurants',
-    '🩺 Medical Content'
+    'Real Estate',
+    'Grand Openings',
+    'Events',
+    'Automotive',
+    'Restaurants',
+    'Medical Content',
+    'Making'
   ]
 
   const handleSelectCategory = (cat) => {
@@ -121,7 +122,7 @@ export default function Portfolio() {
       </section>
 
       {/* Filters */}
-      <section id="portfolio-filters" className="px-4 sm:px-6 py-5 sticky top-[60px] z-30" style={{ background: 'rgb(var(--bg-rgb) /0.95)', backdropFilter: 'blur(16px)', borderBottom: '1px solid rgb(var(--fg-rgb) / 0.06)' }}>
+      <section id="portfolio-filters" className="px-4 sm:px-6 py-5 relative z-10" style={{ background: 'rgb(var(--bg-rgb))', borderBottom: '1px solid rgb(var(--fg-rgb) / 0.06)' }}>
         <div className="max-w-7xl mx-auto relative flex items-center group">
           {/* Left Scroll Button */}
           <button

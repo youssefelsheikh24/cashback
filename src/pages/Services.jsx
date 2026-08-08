@@ -27,8 +27,8 @@ const departments = [
     title: 'Marketing Lab', titleAr: 'مختبر التسويق',
     desc: 'Data-driven amplification. We distribute the narrative ensuring maximum impact across digital ecosystems through strategic placement and audience targeting.',
     descAr: 'تضخيم قائم على البيانات. نوزّع الرسالة لضمان أقصى تأثير عبر المنظومات الرقمية من خلال التموضع الاستراتيجي واستهداف الجمهور.',
-    services: ['Campaign Strategy', 'Social Media Management', 'Performance Marketing', 'Analytics & Reporting'],
-    servicesAr: ['استراتيجية الحملات', 'إدارة السوشيال ميديا', 'تسويق الأداء', 'التحليلات والتقارير'],
+    services: ['Campaign Strategy', 'Social Media Management', 'Performance Marketing', 'Media Buying', 'Analytics & Reporting'],
+    servicesAr: ['استراتيجية الحملات', 'إدارة السوشيال ميديا', 'تسويق الأداء', 'شراء المساحات الإعلانية', 'التحليلات والتقارير'],
   },
   {
     icon: (
@@ -69,7 +69,7 @@ export default function Services() {
             {t(<>STUDIO<br />DEPARTMENTS</>, <>أقسام<br />الاستوديو</>)}
           </h1>
           <p className="text-brand-gray max-w-xl text-base leading-relaxed">
-            {t('We engineer high-impact narratives across digital and physical mediums. Our specialized departments operate with the precision of a modern darkroom, bringing raw ideas into sharp focus.', 'نصمّم حكايات عالية التأثير عبر الوسائط الرقمية والمادية. تعمل أقسامنا المتخصصة بدقّة غرفة تحميض حديثة لتحويل الأفكار الخام إلى صورة واضحة.')}
+            {t('A multidisciplinary creative studio bringing strategy, production, design, and storytelling under one roof', 'استوديو إبداعي متعدد التخصصات يجمع بين الاستراتيجية والإنتاج والتصميم وسرد القصص تحت سقف واحد.')}
           </p>
         </div>
       </section>
