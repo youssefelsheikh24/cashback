@@ -46,13 +46,23 @@ export default function Home() {
       <section className="relative min-h-screen min-h-[100dvh] flex flex-col justify-between overflow-hidden pt-28 sm:pt-36 pb-10 sm:pb-16" style={{ ['--bg-rgb']: '13 13 13', ['--fg-rgb']: '255 255 255' }}>
         {/* Background video */}
         <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden" style={{ zIndex: 0 }}>
+          {/* Desktop / Landscape video */}
           <video
-            src="/hero-cashback.mp4"
+            src="https://media.cashback.marketing/videos/hero-section/hero-cashback.mp4"
             autoPlay
             muted
             loop
             playsInline
-            className="absolute inset-0 w-full h-full object-cover scale-[1.02]"
+            className="hidden sm:block absolute inset-0 w-full h-full object-cover scale-[1.02]"
+          />
+          {/* Mobile video */}
+          <video
+            src="https://media.cashback.marketing/videos/hero-section/logomotion_16x9_nocrop.mp4"
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="block sm:hidden absolute inset-0 w-full h-full object-cover scale-[1.02]"
           />
           {/* Dark gradient overlay — heavier on the left side to boost contrast for left-aligned text */}
           <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, rgb(var(--bg-rgb) /0.85) 0%, rgb(var(--bg-rgb) /0.5) 60%, rgb(var(--bg-rgb) /0.3) 100%)' }} />
