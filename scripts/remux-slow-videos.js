@@ -6,7 +6,7 @@ import { remuxFastStart } from './optimize-faststart.js'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 const rootDir = path.resolve(__dirname, '..')
-const optimizedDir = path.join(rootDir, 'public', 'optimized-videos')
+const optimizedDir = path.join(rootDir, '.optimized-videos')
 
 const slowVideos = [
   { id: 110, title: 'I Investment 2', src: 'https://media.cashback.marketing/videos/real-estate/i%20nvestment%202.mp4', filename: 'i-investment-2.mp4' },

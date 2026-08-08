@@ -3,6 +3,8 @@ dist
 .env
 .env.local
 *.log
+.optimized-videos
+public/optimized-videos
 
 # Collected contact-form submissions (leads) — keep private
 server/data
