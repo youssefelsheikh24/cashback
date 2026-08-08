@@ -15,11 +15,26 @@ export default function Home() {
   const { t } = useLang()
   const heroRef = useRef(null)
   const revealRef = useReveal()
+  const desktopVideoRef = useRef(null)
+  const mobileVideoRef = useRef(null)
 
   // Featured-videos category navigation
   const [activeCat, setActiveCat] = useState(tabCats[0])
   const catVideos = videos.filter(v => v.category === activeCat)
   const mainVideo = catVideos[0]
+
+  // Force autoplay on both background videos
+  useEffect(() => {
+    const playVideo = (ref) => {
+      if (ref.current) {
+        ref.current.muted = true
+        ref.current.defaultMuted = true
+        ref.current.play().catch(() => {})
+      }
+    }
+    playVideo(desktopVideoRef)
+    playVideo(mobileVideoRef)
+  }, [])
 
   // Parallax on hero text
   useEffect(() => {
@@ -48,20 +63,24 @@ export default function Home() {
         <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden" style={{ zIndex: 0 }}>
           {/* Desktop / Landscape video */}
           <video
+            ref={desktopVideoRef}
             src="https://media.cashback.marketing/videos/hero-section/hero-cashback.mp4"
             autoPlay
             muted
             loop
             playsInline
+            preload="auto"
             className="hidden sm:block absolute inset-0 w-full h-full object-cover scale-[1.02]"
           />
           {/* Mobile video */}
           <video
+            ref={mobileVideoRef}
             src="https://media.cashback.marketing/videos/hero-section/logomotion_16x9_nocrop.mp4"
             autoPlay
             muted
             loop
             playsInline
+            preload="auto"
             className="block sm:hidden absolute inset-0 w-full h-full object-cover scale-[1.02]"
           />
           {/* Dark gradient overlay — heavier on the left side to boost contrast for left-aligned text */}
